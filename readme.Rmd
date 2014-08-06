@@ -1,0 +1,533 @@
+---
+title: "Biodiverse Pipeline Read Me"
+author: "Nunzio Knerr"
+date: "Monday, August 04, 2014"
+output: html_document
+---
+
+This file outlines the pipeline scripts. The file names are hopefully pretty self explanatory.\
+If everything is installed correctly you should only need to use the scripts in the R_release folder.\
+The scrpts in the perl directory are called by R which in turn uses Biodiverse.\
+
+
+## Installation ##
+
+
+#### Prerequisites ####
+
+
+R from here [R home page](http://cran.r-project.org/)\
+
+R-Studio from here [R-studio download page](http://www.rstudio.com/products/rstudio/download/)\
+
+You may need an SVN and Git client
+
+
+#### Windows ####
+
+
+SVN for windows here [Tortoise svn](http://tortoisesvn.net/downloads.html)\
+Git here [Tortoise git](https://code.google.com/p/tortoisegit/)\
+also needs this installed after Tortoise git [GIT for Windows](http://msysgit.github.io/)\ 
+
+
+#### Mac #### 
+
+
+SVN for Mac here [scplugin](http://scplugin.tigris.org/servlets/ProjectProcess?pageID=4adHJG)\
+Git here [mac installer](https://code.google.com/p/git-osx-installer/downloads/list?can=3)\
+Git gui for mac here [gitx](http://gitx.frim.nl/index.html)\
+
+
+Biodiverse from here [Biodiverse Download page](https://code.google.com/p/biodiverse/wiki/Installation)\
+Install the source version for your operating system.
+
+
+***********************
+
+
+## Starting out ##
+
+In R-studio you should open the "biodiverse_pipeline.Rproj"" file.\
+It is in the "biodivesre_pipeline" folder"\
+This will set your working directory up and make all relative links work.\
+From here there are a few different types of scripts.\
+
+
+* Setup scripts   
+    + [biodiverse_path_reference.R](#biodiverse_path_reference.r)
+    + [check_and_install_packages.R](#check_and_install_packages)
+    + [convert_csv_to_metres.R](#convert_csv_to_metres)
+    + [open_biodiverse_create_bds.R](#open_biodiverse_create_bds)
+    + [open_biodiverse_create_bts.R](#open_biodiverse_create_bts)
+    + [open_biodiverse_trim_bds_and_bts.R](#open_biodiverse_trim_bds_and_bts)
+* Scripts to run the analyses   
+    + [open_biodiverse_run_analyses.R](#open_biodiverse_run_analyses)
+    + [open_biodiverse_run_randomisations.R](#open_biodiverse_run_randomisations)
+* Scripts to generate outputs
+    + [open_biodiverse_export_results_from_bds.R](#open_biodiverse_export_results_from_bds)
+    + [load_biodiverse_results_and_report_on_CANAPE_by_taxa.R](#load_biodiverse_results_and_report_on_CANAPE_by_taxa )
+    + [load_biodiverse_results_and_plot_maps.R](#load_biodiverse_results_and_plot_maps)
+
+
+*******  
+
+
+The folder stucture is given below
+
+* perl
+    + [create_bds.pl](#create_bds.pl) 
+    + [create_bts.pl](#create_bts.pl) 
+    + [trim_bds_and_bts.pl](#trim_bds_and_bts.pl) 
+    + [run_analyses.pl](#run_analyses.pl) 
+    + [run_randomisation_example.txt](#run_randomisation_example.txt) 
+    + [load_bds_and_export_results.pl](#load_bds_and_export_results.pl) 
+    + [export_spatial_many_basedatas_r.pl](#export_spatial_many_basedatas_r.pl) 
+* R_release
+    + [biodiverse_path_reference.R](#biodiverse_path_reference.r)
+    + [check_and_install_packages.R](#check_and_install_packages)
+    + [convert_csv_to_metres.R](#convert_csv_to_metres)
+    + [open_biodiverse_create_bds.R](#open_biodiverse_create_bds)
+    + [open_biodiverse_create_bts.R](#open_biodiverse_create_bts)
+    + [open_biodiverse_trim_bds_and_bts.R](#open_biodiverse_trim_bds_and_bts)
+    + [open_biodiverse_run_analyses.R](#open_biodiverse_run_analyses)
+    + [open_biodiverse_run_randomisations.R](#open_biodiverse_run_randomisations)
+    + [open_biodiverse_export_results_from_bds.R](#open_biodiverse_export_results_from_bds)
+    + [load_biodiverse_results_and_report_on_CANAPE_by_taxa.R](#load_biodiverse_results_and_report_on_CANAPE_by_taxa )
+    + [load_biodiverse_results_and_plot_maps.R](#load_biodiverse_results_and_plot_maps)
+* shape_files 
+    + coastline_albers.dbf
+    + coastline_albers.prj
+    + coastline_albers.sbn
+    + coastline_albers.sbx
+    + coastline_albers.shp
+    + coastline_albers.shp.xml
+    + coastline_albers.shx
+ 
+ 
+*********  
+
+
+## create_bds.pl
+
+This file creates a biodiverse base data file .bds file\
+
+
+#### Inputs: ####
+
+
+  1. input csv file name\
+  2. output file name\
+  3. label column number\
+  4. group column number x\
+  5. group column number y\
+  6. cell size x\
+  7. cell size y\
+
+
+#### Outputs: ####
+
+
+  1. Output file .(bds)\
+
+
+*********   
+
+
+## create_bts.pl
+
+This file creates a biodiverse tree file from a nexus tree file.\
+
+
+#### Inputs: ####
+
+
+  1. input tree file\
+  2. out file name\
+  
+  
+#### Outputs: ####
+  
+  
+  1. Output file .(bts)\
+
+
+*********
+
+
+## trim_bds_and_bts.pl
+
+This file loads the biodiverse base data file (.bds) and the Biodiverse tree file (.bts) and trims then both to each other.\
+This makes sure that only taxa in the tree are included in the spatial data and visa versa.\
+
+
+#### Inputs: ####
+
+
+  1. input bds file name
+  2. input bts file name
+  3. output bds file name
+  4. output bts file name
+
+
+#### Outputs: ####
+
+  1. output bds file name
+  2. output bts file name
+
+
+
+
+**********  
+
+
+## run_analyses.pl
+
+
+This file loads and exports multipe basedata files in a directory\
+
+
+#### Inputs: ####
+
+
+  1. input bds file name
+  2. input bts file NAME
+  3. calcs (The comma delimited list of calculations to run)
+  4. output bds file
+
+
+#### Outputs: ####
+
+
+  1. output bds file
+
+**********
+
+## run_randomisation_example.txt
+
+This shows an example of the text format needed to use from the command line to get biodiverse to run randomisations.\
+
+
+#### Inputs: ####
+
+
+  none
+
+
+#### Outputs: ####
+
+
+  none
+
+
+**********
+
+
+## load_bds_and_export_results.pl
+
+This file loads the biodiverse file and then exports the reuslts as .csv files.\
+
+
+#### Inputs: ####
+
+
+  1. input bds file
+  2. output csv prefix
+
+
+#### Outputs: ####
+
+
+  1. output csv files
+
+
+*********  
+
+
+## export_spatial_many_basedatas_r.pl
+
+This file loads and exports multipe basedata files in a directory\
+
+
+#### Inputs: ####
+
+
+ 1. folder with .bds files to export results from
+
+
+#### Outputs: ####
+
+
+ 1. results .csv files
+\
+
+
+*********  
+
+
+## biodiverse_path_reference.r
+
+
+This file loads and exports multipe basedata files in a directory\
+
+
+#### Inputs: ####
+
+
+  1. Path to perl installasion\
+  2. Path to PERL5LIB\
+  3. Path to Biodiverse install folder\
+  
+  
+#### Outputs: ####
+
+
+  None
+\
+
+
+*********  
+
+
+## check_and_install_packages
+
+This file loads and exports multipe basedata files in a directory\
+
+
+#### Inputs: ####
+
+  none
+
+\
+
+
+#### Outputs: ####
+
+  none
+\
+
+
+*********  
+
+
+## convert_csv_to_metres
+
+
+This file loads a csv and converts the decimal lat long values to a projection in metres\
+
+
+#### Inputs: ####
+
+
+  1. input csv file 
+  2. output csv file
+  3. long lat columns 
+  4. old projection eg. "+init=epsg:4326" #this is WGS84 most common used for google earth etc. in decimal degrees
+  5. new projection eg. "+init=epsg:3577"
+
+
+#### Outputs: ####
+
+
+  1. output csv file (with added columns x_proj, y_proj)
+\
+
+
+*********  
+
+
+## open_biodiverse_create_bds
+
+This file loads a csv into biodiverse and saves it out as a basedata file.\
+
+
+#### Inputs: ####
+
+
+  1. csv file name
+  2. out file name
+  3. label column number 
+  4. group column number x
+  5. group column number y
+  6. cell_size_x 
+  7. cell size y 
+
+
+#### Outputs: ####
+
+
+  1. out file
+\
+
+
+*********  
+
+
+## open_biodiverse_create_bts
+
+
+This file loads and exports multipe basedata files in a directory\
+
+
+#### Inputs: ####
+
+
+  1. input tree file
+  2. out file name 
+
+
+#### Outputs: ####
+
+
+  1. out file
+\
+
+
+*********  
+
+
+## open_biodiverse_trim_bds_and_bts
+
+
+This file loads and exports multipe basedata files in a directory\
+
+
+#### Inputs: ####
+
+
+  1. input bds file name
+  2. input bts file name
+  3. output bds file name
+  4. output bts file name
+
+
+#### Outputs: ####
+
+
+  1. output bds file
+  2. output bts file
+
+\
+
+
+*********  
+
+
+## open_biodiverse_run_analyses
+
+
+This file loads and exports multipe basedata files in a directory\
+
+
+#### Inputs: ####
+
+
+  1. input bds file name
+  2. input bts file name
+  3. calcs eg. "calc_endemism_whole,calc_pd,calc_pe"
+
+
+#### Outputs: ####
+
+
+  1. input bds file with "_analysed.bds" suffix
+\
+
+
+*********  
+
+
+## open_biodiverse_run_randomisations
+
+
+This file loads and exports multipe basedata files in a directory\
+
+
+#### Inputs: ####
+
+
+  1. basedata file
+  2. rand name to prefix to randomisation
+  3. iterations (number of times to run the randomisation)
+  4. args (extra arguments to pass to the script)
+
+
+#### Outputs: ####
+
+
+  1. basedata file with randomisation results embedded
+\
+
+
+*********  
+
+
+## open_biodiverse_export_results_from_bds
+
+This file loads and exports multipe basedata files in a directory\
+
+
+#### Inputs: ####
+
+
+  1. input bds file name
+  2. output csv prefix (the name to prepend to the output file names)
+
+
+#### Outputs: ####
+  
+  
+  1. files for each of the results stored in the input .bds file with the specified prefix prepended to each.
+\
+
+
+*********  
+
+
+## load_biodiverse_results_and_report_on_CANAPE_by_taxa
+
+
+
+This file loads three results files from biodiverse and calculates CANAPE summaries from them.
+
+
+#### Inputs: ####
+
+
+  1. biodiverse group export
+  2. biodiverse observed data 
+  3. biodiverse randomisation results
+
+
+#### Outputs: ####
+
+
+  1. CANAPE summary by group .csv file
+
+
+
+*********  
+
+
+## load_biodiverse_results_and_plot_maps
+
+This file loads two results files from biodiverse and calculates CANAPE and outputs maps of them.
+
+
+#### Inputs: ####
+
+
+  1. Biodiverse observed data
+  2. Biodiverse randomisation results
+  3. Shape file to use as an outline
+
+
+#### Outputs: ####
+
+
+  1. several image files
+\
+
+
+*********
+
