@@ -1,0 +1,23 @@
+#NEXUS
+begin taxa;
+	dimensions ntax=13;
+	taxlabels
+	'Dendroceros_subgenus_apoceros'
+	'Dendroceros_subgenus_dendroceros'
+	'Megaceros_flagellaris'
+	'Megaceros_pellucidus'
+	'Megaceros_gracilisitis'
+	'Notothylas_javanicus'
+	'Phaeoceros_carolinianus'
+	'Phaeoceros_tuberosus'
+	'Phaeoceros_evanidus'
+	'Phaeoceros_inflatus'
+	'Folioceros_fuciformis'
+	'Anthoceros_fragilis'
+	'Anthoceros_punctatus'
+;
+end;
+
+begin trees;
+	tree tree1 = [&R] (('Folioceros_fuciformis':0.007681654987851186,('Anthoceros_fragilis':0.005376139433053553,'Anthoceros_punctatus':0.0027977772923657995):0.012302298116990129):0.020097274916495,((('Dendroceros_subgenus_apoceros':0.0012041881959861667,'Dendroceros_subgenus_dendroceros':0.0024377293415042134):0.006448036857611819,('Megaceros_flagellaris':0.008995927417535798,('Megaceros_pellucidus':0.004017269543867885,'Megaceros_gracilisitis':0.0012091373136740025):0.0037466003397974984):0.0054160638673516615):0.02371390111582853,('Notothylas_javanicus':0.03681781457647625,(('Phaeoceros_carolinianus':0.0024402128623562183,'Phaeoceros_tuberosus':0.0024538696683042496):0.0015079825119744816,('Phaeoceros_evanidus':0.017428609638994452,'Phaeoceros_inflatus':2.0123780415381987E-6):0.011326045556568166):0.005361260953922212):0.014841253336556517):0.020097274916495);
+end;

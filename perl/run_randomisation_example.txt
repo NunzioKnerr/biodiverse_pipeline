@@ -1,0 +1,1 @@
+perl c:\Biodiverse\bin\run_randomisation.pl --basedata "C:\GIS-Datasets\pipeline_test\trim_analysed.bds" --rand_name "rand" --iterations 9 --args function="rand_structured" max_iters=999

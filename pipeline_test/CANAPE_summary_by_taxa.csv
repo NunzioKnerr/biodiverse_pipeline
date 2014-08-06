@@ -1,0 +1,13 @@
+"Taxa","total_sample_count","all_sig_count","in_all_sig_pcnt","neo_count","in_neo_pcnt","mixed_count","in_mixed_pcnt","super_count","in_supers_pcnt","palaeo_count","in_palaeo_pcnt"
+"Anthoceros_fragilis",2,1,8.33333333333333,NA,NA,1,20,NA,NA,NA,NA
+"Anthoceros_punctatus",21,1,8.33333333333333,NA,NA,1,20,NA,NA,NA,NA
+"Dendroceros_subgenus_apoceros",1,1,8.33333333333333,NA,NA,1,20,NA,NA,NA,NA
+"Dendroceros_subgenus_dendroceros",11,4,33.3333333333333,NA,NA,3,60,1,33.3333333333333,NA,NA
+"Folioceros_fuciformis",2,1,8.33333333333333,NA,NA,1,20,NA,NA,NA,NA
+"Megaceros_flagellaris",3,2,16.6666666666667,NA,NA,2,40,NA,NA,NA,NA
+"Megaceros_pellucidus",5,4,33.3333333333333,NA,NA,2,40,2,66.6666666666667,NA,NA
+"Notothylas_javanicus",1,1,8.33333333333333,NA,NA,NA,NA,NA,NA,1,50
+"Phaeoceros_carolinianus",29,1,8.33333333333333,NA,NA,1,20,NA,NA,NA,NA
+"Phaeoceros_evanidus",4,2,16.6666666666667,NA,NA,1,20,NA,NA,1,50
+"Phaeoceros_inflatus",22,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Phaeoceros_tuberosus",4,2,16.6666666666667,2,100,NA,NA,NA,NA,NA,NA

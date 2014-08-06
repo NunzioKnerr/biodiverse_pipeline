@@ -1,0 +1,394 @@
+genus_species,longitude,latitude,country,order_3_node,order_2_node,order_1_node,state
+Anthoceros_fragilis,146.790621,-19.352911,Australia,node_e,,node_b,Queensland
+Anthoceros_fragilis,146.790621,-19.352911,Australia,node_e,,node_b,Queensland
+Anthoceros_fragilis,145.565931,-18.192642,,node_e,,node_b,
+Anthoceros_fragilis,146.790621,-19.352911,,node_e,,node_b,
+Anthoceros_punctatus,142,-38.4167,Australia,node_e,,node_b,Victoria
+Anthoceros_punctatus,143.6667,-38.4167,Australia,node_e,,node_b,Victoria
+Anthoceros_punctatus,142,-38.4167,Australia,node_e,,node_b,Victoria
+Anthoceros_punctatus,145.5167,-37.7,Australia,node_e,,node_b,Victoria
+Anthoceros_punctatus,117.879722,-35.031388,Australia,node_e,,node_b,WA
+Anthoceros_punctatus,117.933333,-34.95,Australia,node_e,,node_b,WA
+Anthoceros_punctatus,117.284166,-34.984722,Australia,node_e,,node_b,WA
+Anthoceros_punctatus,153.10038,-27.433246,Australia,node_e,,node_b,Queensland
+Anthoceros_punctatus,153.042694,-26.523399,Australia,node_e,,node_b,Queensland
+Anthoceros_punctatus,152.079101,-27.759149,Australia,node_e,,node_b,Queensland
+Anthoceros_punctatus,153.292694,-27.8234,Australia,node_e,,node_b,Queensland
+Anthoceros_punctatus,148.2333,-35.3833,Australia,node_e,,node_b,New South Wales
+Anthoceros_punctatus,149.1167,-35.2833,Australia,node_e,,node_b,
+Anthoceros_punctatus,115.9833,-33.8,Australia,node_e,,node_b,Western Australia
+Anthoceros_punctatus,116.3017,-34.335,Australia,node_e,,node_b,Western Australia
+Anthoceros_punctatus,116.3017,-34.335,Australia,node_e,,node_b,Western Australia
+Anthoceros_punctatus,116.3017,-34.335,Australia,node_e,,node_b,Western Australia
+Anthoceros_punctatus,116.3017,-34.335,Australia,node_e,,node_b,Western Australia
+Anthoceros_punctatus,146.45,-37.9417,Australia,node_e,,node_b,Victoria
+Anthoceros_punctatus,145.7031,-17.585,Australia,node_e,,node_b,Queensland
+Anthoceros_punctatus,131.04,-25.3508,Australia,node_e,,node_b,
+Anthoceros_punctatus,133.317965,-23.715277,Australia,node_e,,node_b,The Northern Territory
+Anthoceros_punctatus,151.221,-33.87,Australia,node_e,,node_b,New South Wales
+Anthoceros_punctatus,151.12,-33.95,Australia,node_e,,node_b,New South Wales
+Anthoceros_punctatus,153.02,-27.47,Australia,node_e,,node_b,Queensland
+Anthoceros_punctatus,150.812,-33.7375,Australia,node_e,,node_b,New South Wales
+Anthoceros_punctatus,153.02,-27.47,Australia,node_e,,node_b,Queensland
+Anthoceros_punctatus,150.812,-33.7375,Australia,node_e,,node_b,New South Wales
+Anthoceros_punctatus,149,-33.27,Australia,node_e,,node_b,New South Wales
+Anthoceros_punctatus,148.969,-33.3347,Australia,node_e,,node_b,New South Wales
+Anthoceros_punctatus,152.511,-32.4308,Australia,node_e,,node_b,New South Wales
+Anthoceros_punctatus,149.1078,-35.2753,Australia,node_e,,node_b,
+Anthoceros_punctatus,149.1,-35.2667,Australia,node_e,,node_b,
+Anthoceros_punctatus,150.5667,-34.3333,Australia,node_e,,node_b,New South Wales
+Anthoceros_punctatus,148.8,-35.45,Australia,node_e,,node_b,
+Anthoceros_punctatus,131.0333,-25.35,Australia,node_e,,node_b,
+Anthoceros_punctatus,145.5633,-17.3375,Australia,node_e,,node_b,Queensland
+Anthoceros_punctatus,149.1167,-35.2833,Australia,node_e,,node_b,
+Anthoceros_punctatus,148.3086,-36.4936,Australia,node_e,,node_b,New South Wales
+Dendroceros_subgenus_apoceros,145.6833,-17.4,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_apoceros,145.75,-17.383333,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_apoceros,145.75,-17.383333,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,145.85,-17.2667,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,153.05,-25.4667,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,153.176101,-27.9234,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,145.2733,-16.5917,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,145.2733,-16.5917,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,146.2022,-19.0011,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,145.2739,-16.5925,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,146.3,-19,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,145.8083,-18.2117,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,145.8083,-18.2117,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,145.8083,-18.2117,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,145.8083,-18.2117,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,145.8083,-18.2117,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,146.2128,-19,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,145.6833,-17.4,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,145.6833,-17.4,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,153.57,-28.87,Australia,node_e,node_d,node_a,New South Wales
+Dendroceros_subgenus_dendroceros,153.57,-28.87,Australia,node_e,node_d,node_a,New South Wales
+Dendroceros_subgenus_dendroceros,153.57,-28.87,Australia,node_e,node_d,node_a,New South Wales
+Dendroceros_subgenus_dendroceros,153.57,-28.87,Australia,node_e,node_d,node_a,New South Wales
+Dendroceros_subgenus_dendroceros,153.57,-28.87,Australia,node_e,node_d,node_a,New South Wales
+Dendroceros_subgenus_dendroceros,153.57,-28.87,Australia,node_e,node_d,node_a,New South Wales
+Dendroceros_subgenus_dendroceros,145.25,-16.57,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,153.57,-28.87,Australia,node_e,node_d,node_a,New South Wales
+Dendroceros_subgenus_dendroceros,152.87,-26.63,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,152.32,-29.47,Australia,node_e,node_d,node_a,New South Wales
+Dendroceros_subgenus_dendroceros,145.25,-15.7167,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,145.75,-17.3833,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,153.05,-25.4,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,145.4333,-17.4167,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,145.4333,-17.4167,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,145.4333,-17.4167,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,145.4333,-17.4167,Australia,node_e,node_d,node_a,Queensland
+Dendroceros_subgenus_dendroceros,152.75,-28.6667,Australia,node_e,node_d,node_a,New South Wales
+Folioceros_fuciformis,145.609405,-17.67346,Australia,node_e,,node_b,Queensland
+Folioceros_fuciformis,145.584396,-17.5818,Australia,node_e,,node_b,Queensland
+Folioceros_fuciformis,145.326,-16.4694,Australia,node_e,,node_b,Queensland
+Folioceros_fuciformis,145.645,-17.3486,Australia,node_e,,node_b,Queensland
+Megaceros_flagellaris,145.8667,-17,Australia,node_e,node_d,node_a,Queensland
+Megaceros_flagellaris,145.4667,-16.25,Australia,node_e,node_d,node_a,Queensland
+Megaceros_flagellaris,145.4875,-17.4183,Australia,node_e,node_d,node_a,Queensland
+Megaceros_flagellaris,145.8686,-18.1956,Australia,node_e,node_d,node_a,Queensland
+Megaceros_gracilis,143.5,-38.7667,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,148.0667,-37.85,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,145.4667,-37.95,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,145.8167,-38.4167,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,149.35,-37.55,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,146.5333,-38.4667,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,146.3833,-38.8667,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,145.5833,-37.45,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,153,-28.35,Australia,node_e,node_d,node_a,Queensland
+Megaceros_gracilis,145.4667,-37.95,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,145.6167,-37.6,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,145.2667,-37.8,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,145.8167,-38.4167,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,145.2167,-37.9667,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,145.2167,-37.9667,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,146.2667,-37.85,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,147.1667,-37.1167,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,148.7944,-37.3028,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,148.7264,-37.275,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,149.05,-36.0667,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,142.5081,-37.1844,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,145.6667,-37.7,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,145.8333,-37.5417,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,145.8333,-37.4833,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,145.8333,-37.4833,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,146.2667,-37.8167,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,145.8333,-37.4833,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,152.9667,-28.3667,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,152.9667,-28.3667,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,150.3667,-33.5167,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,146.75,-36.7667,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,149.8667,-36,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,143.9167,-38.5167,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,143.9167,-38.5167,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,148.8608,-37.3425,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,152.908996,-26.801589,Australia,node_e,node_d,node_a,Queensland
+Megaceros_gracilis,145.2928,-16.590139,Australia,node_e,node_d,node_a,Queensland
+Megaceros_gracilis,149.9167,-35.55,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,143.6667,-38.6333,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,143.6667,-38.6333,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,149.5667,-36.3,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,148.8333,-35.65,Australia,node_e,node_d,node_a,
+Megaceros_gracilis,148.7833,-35.4833,Australia,node_e,node_d,node_a,
+Megaceros_gracilis,148.83,-35.71,Australia,node_e,node_d,node_a,
+Megaceros_gracilis,149.7167,-36.9,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,151.1667,-33.4167,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,152.4833,-30.4167,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,145.8747,-17.2667,Australia,node_e,node_d,node_a,Queensland
+Megaceros_gracilis,146.1686,-18.9858,Australia,node_e,node_d,node_a,Queensland
+Megaceros_gracilis,145.2706,-16.5878,Australia,node_e,node_d,node_a,Queensland
+Megaceros_gracilis,149.9167,-35.5167,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.9167,-35.6333,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.95,-35.55,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,150.2667,-33.6667,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,148.9,-35.51,Australia,node_e,node_d,node_a,
+Megaceros_gracilis,145.2731,-16.5908,Australia,node_e,node_d,node_a,Queensland
+Megaceros_gracilis,145.2731,-16.5908,Australia,node_e,node_d,node_a,Queensland
+Megaceros_gracilis,142.5083,-37.1833,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,142.5083,-37.1833,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,150.5333,-34.75,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,151.0833,-33.7542,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,151.3544,-31.4856,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,152.0575,-31.3728,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,150.3792,-33.5125,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,150.3792,-33.5125,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,150.3792,-33.5125,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.9236,-35.5569,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.9236,-35.5569,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.9236,-35.5569,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.9236,-35.5569,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.9236,-35.5569,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.9075,-35.5183,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.9283,-35.5331,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.9,-35.6167,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,146.4167,-37.95,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,146.4167,-37.95,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,146.4167,-37.95,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,146.3333,-37.8667,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,146.3333,-37.8667,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,146.3333,-37.8667,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,146.2964,-37.9064,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,146.2964,-37.9064,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,146.5833,-38.4333,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,149.355,-37.5536,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,149.3547,-37.5536,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,148.6942,-37.6531,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,148.6942,-37.6531,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,152.4,-30.5,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,150.57,-34.82,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,150.423,-33.5442,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,153.52,-28.8,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,151.596,-32.1,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,152.479,-31.2083,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,147.229,-36.8994,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,145.7,-17.4,Australia,node_e,node_d,node_a,Queensland
+Megaceros_gracilis,148.867,-37.372,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,150,-35.4833,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,148.9833,-35.4833,Australia,node_e,node_d,node_a,
+Megaceros_gracilis,148.9833,-35.6667,Australia,node_e,node_d,node_a,
+Megaceros_gracilis,145.7833,-17.2667,Australia,node_e,node_d,node_a,Queensland
+Megaceros_gracilis,149.9167,-35.6333,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,147.1333,-42.85,Australia,node_e,node_d,node_a,Tasmania
+Megaceros_gracilis,149.8667,-36,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.95,-35.55,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,148.975,-35.6833,Australia,node_e,node_d,node_a,
+Megaceros_gracilis,149.4444,-36.5931,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,153.1583,-28.2583,Australia,node_e,node_d,node_a,Queensland
+Megaceros_gracilis,149.9833,-35.4,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.5333,-36.8,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,150.6667,-34.7667,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,150.6667,-34.7667,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,142.5167,-37.1833,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,148.5,-35.8667,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.5,-36.5667,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,151.4333,-31.9667,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.6333,-35.5,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.8333,-36.0667,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,143.3833,-38.7167,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,146.05,-37.8167,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,149.4667,-36.6833,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,147.15,-37.4167,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,150.5667,-34.3333,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,148.7833,-35.4167,Australia,node_e,node_d,node_a,
+Megaceros_gracilis,146.5333,-38.45,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,151.0333,-24.4167,Australia,node_e,node_d,node_a,Queensland
+Megaceros_gracilis,143.3667,-38.5167,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,143.55,-38.75,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,147.15,-37.1167,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,143.5667,-38.7,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,143.8167,-38.65,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,143.7333,-38.6333,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,142.6167,-37.3167,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,143.7333,-38.6333,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,148.9333,-35.5167,Australia,node_e,node_d,node_a,
+Megaceros_gracilis,148.9333,-35.5167,Australia,node_e,node_d,node_a,
+Megaceros_gracilis,148.9333,-35.5167,Australia,node_e,node_d,node_a,
+Megaceros_gracilis,149.8167,-37.4167,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,151.65,-32.0667,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.8833,-35.6667,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.6333,-35.5167,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.6333,-35.5167,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.6333,-35.5167,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.8667,-36,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.85,-37.5,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,149.8667,-37.4667,Australia,node_e,node_d,node_a,Victoria
+Megaceros_gracilis,149.9167,-35.6167,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,148.8167,-35.3,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,148.7833,-35.5667,Australia,node_e,node_d,node_a,
+Megaceros_gracilis,149.6167,-36.3,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,153.0667,-28.3667,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.9231,-35.555,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,145.2731,-16.5908,Australia,node_e,node_d,node_a,Queensland
+Megaceros_gracilis,145.2731,-16.5908,Australia,node_e,node_d,node_a,Queensland
+Megaceros_gracilis,146.1689,-18.9858,Australia,node_e,node_d,node_a,Queensland
+Megaceros_gracilis,148.6667,-35.35,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.9208,-35.5583,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.9208,-35.5583,Australia,node_e,node_d,node_a,New South Wales
+Megaceros_gracilis,149.0867,-37.5633,Australia,node_e,node_d,node_a,Victoria
+Megaceros_pellucidus,145.4,-42.2,Australia,node_e,node_d,node_a,Tasmania
+Megaceros_pellucidus,147.2167,-42.9,Australia,node_e,node_d,node_a,Tasmania
+Megaceros_pellucidus,147.2167,-42.9,Australia,node_e,node_d,node_a,Tasmania
+Megaceros_pellucidus,147.2167,-42.9,Australia,node_e,node_d,node_a,Tasmania
+Megaceros_pellucidus,147.2167,-42.9,Australia,node_e,node_d,node_a,Tasmania
+Megaceros_pellucidus,146.3,-37.9,Australia,node_e,node_d,node_a,Victoria
+Megaceros_pellucidus,147.25,-42.88,Australia,node_e,node_d,node_a,Tasmania
+Megaceros_pellucidus,146.8667,-43.4667,Australia,node_e,node_d,node_a,Tasmania
+Megaceros_pellucidus,147.25,-42.9,Australia,node_e,node_d,node_a,Tasmania
+Megaceros_pellucidus,147.2167,-42.9333,Australia,node_e,node_d,node_a,Tasmania
+Megaceros_pellucidus,147.25,-42.8833,Australia,node_e,node_d,node_a,Tasmania
+Megaceros_pellucidus,147.95,-41.2167,Australia,node_e,node_d,node_a,Tasmania
+Megaceros_pellucidus,146.496,-42.688,Australia,node_e,node_d,node_a,Tasmania
+Megaceros_pellucidus,146.662,-42.728,Australia,node_e,node_d,node_a,Tasmania
+Notothylas_javanicus,124.962668,-17.412499,,node_e,node_d,node_c,
+Notothylas_javanicus,125.24848,-17.067661,,node_e,node_d,node_c,
+Phaeoceros_carolinianus,133.4667,-23.7167,Australia,node_e,node_d,node_c,Northern Territory
+Phaeoceros_carolinianus,151.2,-33.8167,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,152.7667,-27.3167,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,126.6667,-15.0333,Australia,node_e,node_d,node_c,Western Australia
+Phaeoceros_carolinianus,146.7833,-36.75,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_carolinianus,152.7667,-27.3167,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,145.6167,-37.6,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_carolinianus,145.6167,-37.6,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_carolinianus,151.2,-33.8167,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,142.5833,-37.3833,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_carolinianus,148.6,-37.4,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_carolinianus,116.248333,-34.679722,Australia,node_e,node_d,node_c,WA
+Phaeoceros_carolinianus,125.843333,-16.801388,Australia,node_e,node_d,node_c,WA
+Phaeoceros_carolinianus,117.020692,-34.627129,Australia,node_e,node_d,node_c,WA
+Phaeoceros_carolinianus,149.292694,-20.7901,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,149.292694,-20.823429,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,149.292694,-20.7901,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,151.904296,-25.47649,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,152.192703,-28.09007,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,152.937194,-27.28507,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,153.292694,-27.8234,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,152.524704,-28.20012,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,152.959396,-26.790069,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,152.842697,-28.25674,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,152.05,-27.4333,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,149.1,-35.2667,Australia,node_e,node_d,node_c,
+Phaeoceros_carolinianus,148.8167,-35.4167,Australia,node_e,node_d,node_c,
+Phaeoceros_carolinianus,149.1167,-35.2833,Australia,node_e,node_d,node_c,
+Phaeoceros_carolinianus,149.1167,-35.2833,Australia,node_e,node_d,node_c,
+Phaeoceros_carolinianus,145.5003,-17.2342,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,149.1167,-35.2667,Australia,node_e,node_d,node_c,
+Phaeoceros_carolinianus,150.4667,-34.7333,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,150.4667,-34.7333,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,148.9,-35.51,Australia,node_e,node_d,node_c,
+Phaeoceros_carolinianus,148.9,-35.51,Australia,node_e,node_d,node_c,
+Phaeoceros_carolinianus,146.1128,-19.0586,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,148.7333,-20.35,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,149.4667,-37.0833,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,116.25,-34.4333,Australia,node_e,node_d,node_c,Western Australia
+Phaeoceros_carolinianus,116.2425,-34.4525,Australia,node_e,node_d,node_c,Western Australia
+Phaeoceros_carolinianus,148.025,-37.7417,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_carolinianus,145.7031,-17.585,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,145.4539,-17.1964,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,145.4539,-17.1964,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,145.4539,-17.1964,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,145.4539,-17.1964,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,145.4539,-17.1964,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,145.4539,-17.1964,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,145.4539,-17.1964,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,145.7553,-17.3722,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,145.7553,-17.3722,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,151.22,-33.9,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,151.22,-33.82,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,150.25,-33.55,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,153.47,-28.95,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,151.2,-33.82,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,151.22,-33.82,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,150.87,-34.4,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,145.45,-17.62,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,152.77,-27.32,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,150.092,-33.3111,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,150.908,-34.2375,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,150.608,-33.6861,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,153.4167,-28.55,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,148.1667,-41.5333,Australia,node_e,node_d,node_c,Tasmania
+Phaeoceros_carolinianus,148.9167,-35.6167,Australia,node_e,node_d,node_c,
+Phaeoceros_carolinianus,149.1083,-35.275,Australia,node_e,node_d,node_c,
+Phaeoceros_carolinianus,149.9333,-37.3,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,148.8,-35.45,Australia,node_e,node_d,node_c,
+Phaeoceros_carolinianus,148.8333,-35.4333,Australia,node_e,node_d,node_c,
+Phaeoceros_carolinianus,150.7667,-35.1333,Australia,node_e,node_d,node_c,
+Phaeoceros_carolinianus,148.2333,-25.0667,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,153.4833,-28.5333,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,152.9,-26.7833,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,153,-26.2333,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,149.5167,-35.5,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_carolinianus,145.5633,-17.3375,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,148.7333,-20.35,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,148.65,-20.25,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_carolinianus,153.02,-27.47,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_evanidus,145.4667,-17.6333,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_evanidus,152.5986,-30.8839,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_evanidus,150.87,-33.72,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_evanidus,151.9333,-32.35,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_evanidus,145.4667,-17.6333,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_inflatus,143.7167,-38.5167,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,144.3667,-37.5,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,116.0167,-34.45,Australia,node_e,node_d,node_c,Western Australia
+Phaeoceros_inflatus,144.3667,-37.5,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,145.2167,-37.75,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,141.9167,-38.0667,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,141.5,-38.3167,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,142.0167,-36.45,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,143.8667,-37.65,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,143.8667,-37.65,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,151.0667,-33.9667,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_inflatus,145.8,-38.65,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,143.7167,-38.4167,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,143.9167,-37.65,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,141.65,-38.4,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,145.3167,-37.8667,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,147.1667,-37.1167,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,149.9167,-37.5667,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,145.5167,-37.7,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,145.2,-37.7333,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,145.2,-37.7333,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,153.042694,-26.523399,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_inflatus,148.9333,-31.2833,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_inflatus,116.05,-34.4833,Australia,node_e,node_d,node_c,Western Australia
+Phaeoceros_inflatus,149.0867,-37.5633,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,117.9575,-34.4139,Australia,node_e,node_d,node_c,Western Australia
+Phaeoceros_inflatus,153.47,-28.95,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_inflatus,151.1,-33.97,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_inflatus,151.9,-30.57,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_inflatus,153.47,-28.87,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_inflatus,151.12,-33.75,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_inflatus,148.8,-35.6833,Australia,node_e,node_d,node_c,
+Phaeoceros_inflatus,150.75,-35.1667,Australia,node_e,node_d,node_c,
+Phaeoceros_inflatus,152.1667,-31.4167,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_inflatus,149.8667,-35.7667,Australia,node_e,node_d,node_c,New South Wales
+Phaeoceros_inflatus,141.1903,-38.0531,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,145.2,-37.7333,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,145.2,-37.7333,Australia,node_e,node_d,node_c,Victoria
+Phaeoceros_inflatus,148.5167,-21.25,Australia,node_e,node_d,node_c,Queensland
+Phaeoceros_inflatus,116.0875,-34.7583,Australia,node_e,node_d,node_c,Western Australia
+Phaeoceros_tuberosus,116.65,-30.85,Australia,node_e,node_d,node_c,Western Australia
+Phaeoceros_tuberosus,117.9167,-28.1667,Australia,node_e,node_d,node_c,Western Australia
+Phaeoceros_tuberosus,116.546666,-30.758333,Australia,node_e,node_d,node_c,WA
+Phaeoceros_tuberosus,118.1833,-34.3167,Australia,node_e,node_d,node_c,Western Australia
+Phaeoceros_tuberosus,118.1833,-34.3167,Australia,node_e,node_d,node_c,Western Australia
+Phaeoceros_tuberosus,116.5336,-31.4653,Australia,node_e,node_d,node_c,Western Australia
