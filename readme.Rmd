@@ -49,14 +49,14 @@ Install the source version for your operating system.
 ## Starting out ##
 
 In R-studio you should open the "biodiverse_pipeline.Rproj"" file.\
-It is in the "biodivesre_pipeline" folder"\
+It is in the "biodiverSe_pipeline" folder"\
 This will set your working directory up and make all relative links work.\
 From here there are a few different types of scripts.\
 
 
 * Setup scripts   
-    + [biodiverse_path_reference.R](#biodiverse_path_reference.r)
     + [check_and_install_packages.R](#check_and_install_packages)
+    + [biodiverse_path_reference.R](#biodiverse_path_reference.r)
     + [convert_csv_to_metres.R](#convert_csv_to_metres)
     + [open_biodiverse_create_bds.R](#open_biodiverse_create_bds)
     + [open_biodiverse_create_bts.R](#open_biodiverse_create_bts)
@@ -68,6 +68,31 @@ From here there are a few different types of scripts.\
     + [open_biodiverse_export_results_from_bds.R](#open_biodiverse_export_results_from_bds)
     + [load_biodiverse_results_and_report_on_CANAPE_by_taxa.R](#load_biodiverse_results_and_report_on_CANAPE_by_taxa )
     + [load_biodiverse_results_and_plot_maps.R](#load_biodiverse_results_and_plot_maps)
+
+
+*******  
+
+## Setup Scripts ##
+
+These help get everything setup so it all works :)\
+
+
+#### check_and_install_packages.R ####
+
+
+The "check_and_install_packages.R" file does just that, it checks to see if you have a number of packages installed.\
+If you don't, then it attempts to download and install them.\
+Hopefully it will make setting up your R envinonment a lot quicker and easier.\
+
+
+********
+
+
+#### biodiverse_path_reference.R ####
+
+This file contains all the path references needed. for perl etc. to work with the R scripts.\
+THIS NEEDS TO BE CORRECT OR NOTHING WILL WORK!!!
+
 
 
 *******  
