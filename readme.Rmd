@@ -20,7 +20,7 @@ R from here [R home page](http://cran.r-project.org/)\
 
 R-Studio from here [R-studio download page](http://www.rstudio.com/products/rstudio/download/)\
 
-You may need an SVN and Git client
+You need an SVN and Git client
 
 
 #### Windows ####
@@ -41,6 +41,16 @@ Git gui for mac here [gitx](http://gitx.frim.nl/index.html)\
 
 Biodiverse from here [Biodiverse Download page](https://code.google.com/p/biodiverse/wiki/Installation)\
 Install the source version for your operating system.
+
+from a terminal window you will need to run the following as well\
+
+
+cpanm Getopt::Long::Descriptive\
+cpan Text::CSV\
+cpan Text::CSV_XS\
+cpanm Text::CSV\
+cpanm Text::CSV_XS\
+cpanm List::BinarySearch\
 
 
 ***********************
@@ -96,6 +106,16 @@ THIS NEEDS TO BE CORRECT OR NOTHING WILL WORK!!!
 
 
 *******  
+
+
+#### convert_csv_to_metres.R ####
+
+
+This is the first file that takes some of your data and converts lat/longs to metres for use in the analyses.\
+
+
+
+*********
 
 
 The folder stucture is given below

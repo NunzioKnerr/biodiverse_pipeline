@@ -64,7 +64,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h2>Installation</h2>
 <div id="prerequisites" class="section level4">
 <h4>Prerequisites</h4>
-<p>R from here <a href="http://cran.r-project.org/">R home page</a><br /> R-Studio from here <a href="http://www.rstudio.com/products/rstudio/download/">R-studio download page</a><br /> You may need an SVN and Git client</p>
+<p>R from here <a href="http://cran.r-project.org/">R home page</a><br /> R-Studio from here <a href="http://www.rstudio.com/products/rstudio/download/">R-studio download page</a><br /> You need an SVN and Git client</p>
 </div>
 <div id="windows" class="section level4">
 <h4>Windows</h4>
@@ -74,6 +74,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h4>Mac</h4>
 <p>SVN for Mac here <a href="http://scplugin.tigris.org/servlets/ProjectProcess?pageID=4adHJG">scplugin</a><br />Git here <a href="https://code.google.com/p/git-osx-installer/downloads/list?can=3">mac installer</a><br />Git gui for mac here <a href="http://gitx.frim.nl/index.html">gitx</a><br /></p>
 <p>Biodiverse from here <a href="https://code.google.com/p/biodiverse/wiki/Installation">Biodiverse Download page</a><br />Install the source version for your operating system.</p>
+<p>from a terminal window you will need to run the following as well<br /></p>
+<p>cpanm Getopt::Long::Descriptive<br />cpanm Text::CSV_XS<br />cpanm List::BinarySearch<br /></p>
 <hr />
 </div>
 </div>
@@ -115,6 +117,11 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="biodiverse_path_reference.r" class="section level4">
 <h4>biodiverse_path_reference.R</h4>
 <p>This file contains all the path references needed. for perl etc. to work with the R scripts.<br />THIS NEEDS TO BE CORRECT OR NOTHING WILL WORK!!!</p>
+<hr />
+</div>
+<div id="convert_csv_to_metres.r" class="section level4">
+<h4>convert_csv_to_metres.R</h4>
+<p>This is the first file that takes some of your data and converts lat/longs to metres for use in the analyses.<br /></p>
 <hr />
 <p>The folder stucture is given below</p>
 <ul>
