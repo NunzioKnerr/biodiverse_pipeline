@@ -12,8 +12,9 @@ library(extrafont)
 myFont <- choose_font(c("HelvLight", "Arial", "sans"), quiet = TRUE)#load a font if available
 
 source("./R_release/biodiverse_path_reference.R")
-observed_data <- paste0("C:/biodiverse_pipeline/pipeline_test/biodiverse_analysed_output_SPATIAL_RESULTS.csv")
-randomisation_results  <- paste0("C:/biodiverse_pipeline/pipeline_test/biodiverse_analysed_output_rand--SPATIAL_RESULTS.csv")
+data_dir <- "C:/biodiverse_pipeline/pipeline_test/"
+observed_data <- paste0(data_dir, "biodiverse_analysed_output_SPATIAL_RESULTS.csv")
+randomisation_results  <- paste0(data_dir, "biodiverse_analysed_output_rand--SPATIAL_RESULTS.csv")
 map_shape_file <- paste(biodiverse_pipeline_install_folder, "/shape_files/coastline_albers.shp", sep="")
 output_folder <-  paste0("C:/biodiverse_pipeline/pipeline_test/")
 
@@ -67,28 +68,38 @@ significance_super_fun <- function(x, y, z){
 ###################################################################################
 #Create new columns in dataframe and populate them using the functions above
 ###################################################################################
-trait_index <- grep("^P_PHYLO_RPD1$", colnames(biodiverse_results_concatenated)) #get the index of the column with the trait 
-biodiverse_results_concatenated$P_PHYLO_RPD1_SIG <- apply(biodiverse_results_concatenated[trait_index],  MARGIN=c(1), significance_fun) # apply the function to every row of column with index "trait_index" and generate a column in the dataframe showing significant cells
 
-trait_index <- grep("^P_PHYLO_RPD2$", colnames(biodiverse_results_concatenated)) #get the index of the column with the trait 
-biodiverse_results_concatenated$P_PHYLO_RPD2_SIG <- apply(biodiverse_results_concatenated[trait_index],  MARGIN=c(1), significance_fun) # apply the function to every row of column with index "trait_index" and generate a column in the dataframe showing significant cells
+#  SWL:  not sure why RPE2 is in this list when it is also handled below
+targets <- c("PHYLO_RPD1", "PHYLO_RPD2", "PD_P", "PE_WE_P", "PD_P_per_taxon", "PHYLO_RPE2")
 
-trait_index <- grep("^P_PD_P$", colnames(biodiverse_results_concatenated)) #get the index of the column with the trait 
-biodiverse_results_concatenated$P_PD_P_SIG <- apply(biodiverse_results_concatenated[trait_index],  MARGIN=c(1), significance_fun) # apply
-
-trait_index <- grep("^P_PE_WE_P$", colnames(biodiverse_results_concatenated)) #get the index of the column with the trait 
-biodiverse_results_concatenated$P_PE_WE_P_SIG <- apply(biodiverse_results_concatenated[trait_index],  MARGIN=c(1), significance_fun) # apply
-
-trait_index <- grep("^P_PD_P_per_taxon$", colnames(biodiverse_results_concatenated)) #get the index of the column with the trait 
-biodiverse_results_concatenated$P_PD_P_per_taxon_SIG <- apply(biodiverse_results_concatenated[trait_index],  MARGIN=c(1), significance_fun) # apply
-
-trait_index <- grep("^P_PHYLO_RPE2$", colnames(biodiverse_results_concatenated)) #get the index of the column with the trait 
-biodiverse_results_concatenated$P_PHYLO_RPE2_ONE_STEP_SIG <- apply(biodiverse_results_concatenated[trait_index],  MARGIN=c(1), significance_fun) # apply the function to every row of column with index "trait_index" and generate a column in the dataframe showing significant cells
+for (name in targets) {
+  colname <- paste0("P_", name)  #  prepend the P_ since we want the proportions, saves some typing above
+  new_colname = paste0(colname, "_SIG")
+  trait_index <- match (colname, colnames(biodiverse_results_concatenated))
+  # Apply the function to every row of column with index "trait_index" 
+  #  and generate a column in the dataframe showing significant cells
+  biodiverse_results_concatenated[[colname]] <- apply (biodiverse_results_concatenated[trait_index],  MARGIN=c(1), significance_fun) 
+}
 
 #This uses the 2 pass test to pull out palaeo, neo and super for RPE
-biodiverse_results_concatenated$P_PHYLO_RPE1_SIG <- sapply(1:nrow(biodiverse_results_concatenated), function(x) significance_super_fun(biodiverse_results_concatenated$P_PE_WE_P[x], biodiverse_results_concatenated$P_PHYLO_RPE_NULL1[x], biodiverse_results_concatenated$P_PHYLO_RPE1[x])) 
+#  SWL - could be refactored into a function
+biodiverse_results_concatenated$P_PHYLO_RPE1_SIG <- sapply(
+  1:nrow(biodiverse_results_concatenated), 
+  function(x) significance_super_fun(
+    biodiverse_results_concatenated$P_PE_WE_P[x], 
+    biodiverse_results_concatenated$P_PHYLO_RPE_NULL1[x], 
+    biodiverse_results_concatenated$P_PHYLO_RPE1[x]
+  )
+)
 
-biodiverse_results_concatenated$P_PHYLO_RPE2_SIG <- sapply(1:nrow(biodiverse_results_concatenated), function(x) significance_super_fun(biodiverse_results_concatenated$P_PE_WE_P[x], biodiverse_results_concatenated$P_PHYLO_RPE_NULL2[x], biodiverse_results_concatenated$P_PHYLO_RPE2[x])) 
+biodiverse_results_concatenated$P_PHYLO_RPE2_SIG <- sapply(
+  1:nrow(biodiverse_results_concatenated), 
+  function(x) significance_super_fun(
+    biodiverse_results_concatenated$P_PE_WE_P[x], 
+    biodiverse_results_concatenated$P_PHYLO_RPE_NULL2[x], 
+    biodiverse_results_concatenated$P_PHYLO_RPE2[x]
+  )
+)
 
 #test <- subset(biodiverse_results_concatenated, ,select=c("Element", "P_PE_WE_P", "P_PD_P_SIG", "P_PHYLO_RPD_NULL1", "P_PHYLO_RPD1","P_PHYLO_RPE2_ONE_STEP_SIG", "P_PHYLO_RPE2_SIG"))
 # 
@@ -128,24 +139,26 @@ p1 <- ggplot(data=df) + xlim(min_x, max_x) +  ylim(min_y, max_y) +
   geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
   coord_fixed() +
   #annotate("text", label = "a", x = 2000000, y = -4750000, size=rel(20),  face = 'plain', family = myFont) +
-  annotate("rect", xmin = -750000, xmax = -250000, ymin = -4500000, ymax = -4550000, fill = "black", colour = "black", alpha = 1)+
-  annotate("rect", xmin = -250000, xmax = 250000, ymin = -4500000, ymax = -4550000, fill = "white", colour = "black", alpha = 1)+
-  annotate("text", label = "0", x = -750000, y = -4650000, size=rel(18),  face = 'plain', family = myFont) +
-  annotate("text", label = "500", x = -250000, y = -4650000, size=rel(18),  face = 'plain', family = myFont) +
-  annotate("text", label = "1000", x = 250000, y = -4650000, size=rel(18),  face = 'plain', family = myFont) +
-  annotate("text", label = "km", x = 620000, y = -4650000, size=rel(18),  face = 'plain', family = myFont) +
- theme(text = element_text(family = myFont),
-        strip.background = element_blank(),
-        axis.line=element_blank(),axis.text.x=element_blank(),
-        axis.text.y=element_blank(),axis.ticks=element_blank(),
-        axis.title.x=element_blank(),axis.title.y=element_blank(),
-        legend.key.height = unit(1.1, "cm"),legend.margin = unit(2, "cm"),
-        legend.key.width = unit(6.2, "cm"),legend.position=c(.5, 0.93),
-        legend.direction='horizontal',
-        legend.title = element_text(colour = 'black', angle = 0, size=rel(4), face = 'plain', family = myFont),
-        legend.text = element_text(colour = 'black', angle = 0, size=rel(4), face = 'plain', family = myFont),
-        panel.grid = element_blank(),panel.background=element_blank(),
-        plot.background=element_rect(colour = "black", fill="white", size = 1),plot.margin=unit(c(0,0,-0.61,-0.61),"line"))
+  annotate("rect", xmin  = -750000, xmax = -250000, ymin = -4500000, ymax = -4550000, fill = "black", colour = "black", alpha = 1)+
+  annotate("rect", xmin  = -250000, xmax =  250000, ymin = -4500000, ymax = -4550000, fill = "white", colour = "black", alpha = 1)+
+  annotate("text", label = "0",     x = -750000, y = -4650000, size=rel(18), face = 'plain', family = myFont) +
+  annotate("text", label = "500",   x = -250000, y = -4650000, size=rel(18), face = 'plain', family = myFont) +
+  annotate("text", label = "1000",  x =  250000, y = -4650000, size=rel(18), face = 'plain', family = myFont) +
+  annotate("text", label = "km",    x =  620000, y = -4650000, size=rel(18), face = 'plain', family = myFont) +
+  theme( 
+    text = element_text(family = myFont),
+    strip.background = element_blank(),
+    axis.line    = element_blank(),      axis.text.x  = element_blank(),
+    axis.text.y  = element_blank(),      axis.ticks   = element_blank(),
+    axis.title.x = element_blank(),      axis.title.y = element_blank(),
+    legend.key.height = unit(1.1, "cm"), legend.margin   = unit(2, "cm"),
+    legend.key.width  = unit(6.2, "cm"), legend.position = c(.5, 0.93),
+    legend.direction  ='horizontal',
+    legend.title      = element_text(colour = 'black', angle = 0, size=rel(4), face = 'plain', family = myFont),
+    legend.text       = element_text(colour = 'black', angle = 0, size=rel(4), face = 'plain', family = myFont),
+    panel.grid        = element_blank(),panel.background=element_blank(),
+    plot.background   = element_rect(colour = "black", fill="white", size = 1), plot.margin=unit(c(0,0,-0.61,-0.61), "line")
+  )
 
 print(p1)
 
