@@ -69,8 +69,7 @@ significance_super_fun <- function(x, y, z){
 #Create new columns in dataframe and populate them using the functions above
 ###################################################################################
 
-#  SWL:  not sure why RPE2 is in this list when it is also handled below
-targets <- c("PHYLO_RPD1", "PHYLO_RPD2", "PD_P", "PE_WE_P", "PD_P_per_taxon", "PHYLO_RPE2")
+targets <- c("PHYLO_RPD1", "PHYLO_RPD2", "PD_P", "PE_WE_P", "PD_P_per_taxon")
 
 for (name in targets) {
   colname <- paste0("P_", name)  #  prepend the P_ since we want the proportions, saves some typing above
@@ -78,7 +77,7 @@ for (name in targets) {
   trait_index <- match (colname, colnames(biodiverse_results_concatenated))
   # Apply the function to every row of column with index "trait_index" 
   #  and generate a column in the dataframe showing significant cells
-  biodiverse_results_concatenated[[colname]] <- apply (biodiverse_results_concatenated[trait_index],  MARGIN=c(1), significance_fun) 
+  biodiverse_results_concatenated[[new_colname]] <- apply (biodiverse_results_concatenated[trait_index],  MARGIN=c(1), significance_fun) 
 }
 
 #This uses the 2 pass test to pull out palaeo, neo and super for RPE
