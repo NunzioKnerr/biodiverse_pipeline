@@ -10,7 +10,7 @@
 #
 #below is a list of packages to check and install
 #
-stdpkgs <- c("sp", "maptools", "XML", "RSAGA", "rgdal", "rgeos", "raster", "plyr", "dplyr", "tidyr", "ggplot2", "RColorBrewer", "colorspace", "colorRamps", "spacetime", "aqp", "spatstat", "scales", "stringr", "gWidgets", "phytools", "ape", "apTreeshape") 
+stdpkgs <- c("sp", "maptools", "XML", "gridExtra", "Cairo", "rgdal", "extrafont", "grid",  "rgeos", "raster", "plyr", "dplyr", "tidyr", "ggplot2", "RColorBrewer", "colorspace", "colorRamps", "spacetime", "aqp", "spatstat", "scales", "stringr", "gWidgets", "phytools", "ape", "apTreeshape") 
 otherpkgs <- c("plotKML") 
 #
 #Do not edit below
