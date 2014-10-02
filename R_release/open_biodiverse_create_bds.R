@@ -18,11 +18,11 @@
 #
 csv_file <- paste0("./pipeline_test/test_hornworts_epsg_3577.csv")
 out_file <- paste0("./pipeline_test/test_hornworts_epsg_3577.bds")
-label_column_number <- paste0(1) 
-group_column_number_x <- paste0(9) 
-group_column_number_y <- paste0(10)
-cell_size_x <- paste0(100000)
-cell_size_y <- paste0(100000)
+label_column_number <- 1 
+group_column_number_x <- 9 
+group_column_number_y <- 10
+cell_size_x <- 100000
+cell_size_y <- 100000
 #
 ###### do not edit below #########
 #  Should be set on system, but useful for portabilty to other systems
