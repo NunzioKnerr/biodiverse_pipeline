@@ -1,4 +1,4 @@
-library(sp)    
+library(sp)
 library(maptools) 
 library(raster)
 library(RColorBrewer)
@@ -11,12 +11,17 @@ library(extrafont)
 
 myFont <- choose_font(c("HelvLight", "Arial", "sans"), quiet = TRUE)#load a font if available
 
-source("./R_release/biodiverse_path_reference.R")
-data_dir <- "C:/biodiverse_pipeline/pipeline_test/"
+base_dir = 'C:/shawn/svn/bd_pipeline/'
+biodiverse_pipeline_install_folder = base_dir
+
+source(paste0(base_dir, "R_release/biodiverse_path_reference.R"))
+data_dir <- paste0(base_dir, "pipeline_test/")
+
 observed_data <- paste0(data_dir, "biodiverse_analysed_output_SPATIAL_RESULTS.csv")
 randomisation_results  <- paste0(data_dir, "biodiverse_analysed_output_rand--SPATIAL_RESULTS.csv")
-map_shape_file <- paste(biodiverse_pipeline_install_folder, "/shape_files/coastline_albers.shp", sep="")
+map_shape_file <- paste0(base_dir, "shape_files/coastline_albers.shp")
 output_folder <-  paste0("C:/biodiverse_pipeline/pipeline_test/")
+output_folder <- paste0(base_dir, 'blah')
 
 print_seperate_images <- TRUE
 output_PNG <- TRUE
@@ -30,6 +35,7 @@ biodiverse_results_concatenated <- cbind(observed_data, randomisation_results)
 
 map_data <- readShapePoly(map_shape_file)
 map_extent <- extent(map_data)
+map_margin = 700000
 
 
 #############################################################################
@@ -75,6 +81,7 @@ for (name in targets) {
   colname <- paste0("P_", name)  #  prepend the P_ since we want the proportions, saves some typing above
   new_colname = paste0(colname, "_SIG")
   trait_index <- match (colname, colnames(biodiverse_results_concatenated))
+#print (paste (colname, trait_index, new_colname))
   # Apply the function to every row of column with index "trait_index" 
   #  and generate a column in the dataframe showing significant cells
   biodiverse_results_concatenated[[new_colname]] <- apply (biodiverse_results_concatenated[trait_index],  MARGIN=c(1), significance_fun) 
@@ -121,10 +128,10 @@ legend_text <- paste("Taxon Richness", sep="") # text for the legend
 legend_position <- paste("top", sep="") # position of the legend
 rounding_digits <- 0 # rounding digits to use
 
-max_x <- map_extent@xmax+700000 # extent of map + space for legend
-min_x <- map_extent@xmin-700000 # other extent of map
-max_y <- map_extent@ymax+700000 # extent of map + space for legend
-min_y <- map_extent@ymin-700000 # other extent of map
+max_x <- map_extent@xmax + map_margin # extent of map + space for legend
+min_x <- map_extent@xmin - map_margin # other extent of map
+max_y <- map_extent@ymax + map_margin # extent of map + space for legend
+min_y <- map_extent@ymin - map_margin # other extent of map
 
 #Create vectors for legend text using the max and min vaules in the raster and a number in between
 ENDW_RICHNESS.hs <- seq(0,max(biodiverse_results_concatenated[,sigplot]),length.out=5)
@@ -162,18 +169,19 @@ p1 <- ggplot(data=df) + xlim(min_x, max_x) +  ylim(min_y, max_y) +
 print(p1)
 
 if (print_seperate_images == TRUE){
-if (output_PNG == TRUE){
-  CairoPNG(width = 2325, height = 2246, file = paste(output_folder, "figure_1_a.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 1 a") #
-  print(p1)
-  dev.off()
+  if (output_PNG == TRUE){
+    CairoPNG(width = 2325, height = 2246, file = paste(output_folder, "figure_1_a.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 1 a") #
+    print(p1)
+    dev.off()
+  }
+  
+  if (output_PDF == TRUE){
+    CairoPDF(width = 36, height = 34, file = paste(output_folder, "figure_1_a.pdf",sep=""), pointsize=40, bg = "white", title = "Figure 1 a", version = "1.7", paper = "special", pagecentre=TRUE) #
+    print(p1)
+    dev.off()
+  }
 }
 
-if (output_PDF == TRUE){
-  CairoPDF(width = 36, height = 34, file = paste(output_folder, "figure_1_a.pdf",sep=""), pointsize=40, bg = "white", title = "Figure 1 a", version = "1.7", paper = "special", pagecentre=TRUE) #
-  print(p1)
-  dev.off()
-}
-}
 ########################################################
 # Figure 1 b
 ########################################################
@@ -187,10 +195,10 @@ rounding_digits <- 2
 yellowOrangeBrown_colours <- brewer.pal(9, "YlOrBr")
 colours <- yellowOrangeBrown_colours
 
-max_x <- map_extent@xmax+700000 # extent of map + space for legend
-min_x <- map_extent@xmin-700000 # other extent of map
-max_y <- map_extent@ymax+700000 # extent of map + space for legend
-min_y <- map_extent@ymin-700000 # other extent of map
+max_x <- map_extent@xmax + map_margin # extent of map + space for legend
+min_x <- map_extent@xmin - map_margin # other extent of map
+max_y <- map_extent@ymax + map_margin # extent of map + space for legend
+min_y <- map_extent@ymin - map_margin # other extent of map
 
 #   Create vectors for legend text using the max and min vaules in the raster and a number in between
 ENDW_WE.hs <- seq(0,max(biodiverse_results_concatenated$ENDW_WE),length.out=5)
@@ -226,17 +234,17 @@ p2 <- ggplot(data=df)+ xlim(min_x, max_x) +  ylim(min_y, max_y) +
 print(p2)
 
 if (print_seperate_images == TRUE){
-if (output_PNG == TRUE){
-  CairoPNG(width = 2325, height = 2246, file = paste(output_folder, "figure_1_b.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 1 b") #
-  print(p2)
-  dev.off()
-}
-
-if (output_PDF == TRUE){
-  CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_1_b.pdf",sep=""), pointsize=40, bg = "white", title = "Figure 1 b", version = "1.7", paper = "special", pagecentre=TRUE) #
-  print(p2)
-  dev.off()
-}
+  if (output_PNG == TRUE){
+    CairoPNG(width = 2325, height = 2246, file = paste(output_folder, "figure_1_b.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 1 b") #
+    print(p2)
+    dev.off()
+  }
+  
+  if (output_PDF == TRUE){
+    CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_1_b.pdf",sep=""), pointsize=40, bg = "white", title = "Figure 1 b", version = "1.7", paper = "special", pagecentre=TRUE) #
+    print(p2)
+    dev.off()
+  }
 }
 #########################################
 # Figure 1 c
@@ -249,10 +257,10 @@ rounding_digits <- 3
 legend_text <- paste("Phylogenetic diversity", sep="")
 legend_position <- paste("bottom", sep="")
 
-max_x <- map_extent@xmax+700000 # extent of map + space for legend
-min_x <- map_extent@xmin-700000 # other extent of map
-max_y <- map_extent@ymax+700000 # extent of map + space for legend
-min_y <- map_extent@ymin-700000 # other extent of map
+max_x <- map_extent@xmax + map_margin # extent of map + space for legend
+min_x <- map_extent@xmin - map_margin # other extent of map
+max_y <- map_extent@ymax + map_margin # extent of map + space for legend
+min_y <- map_extent@ymin - map_margin # other extent of map
 
 yellowOrangeBrown_colours <- brewer.pal(9, "YlOrBr")
 colours <- yellowOrangeBrown_colours
@@ -293,17 +301,17 @@ p3 <- ggplot(data=df) + xlim(min_x, max_x) +  ylim(min_y, max_y) +
 print(p3)
 
 if (print_seperate_images == TRUE){
-if (output_PNG == TRUE){
-  CairoPNG(width = 2325, height = 2246, file = paste(output_folder, "figure_1_c.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 1 c") #
-  print(p3)
-  dev.off()
-}
-
-if (output_PDF == TRUE){
-  CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_1_c.pdf",sep=""), pointsize=40, bg = "white", title = "Figure 1 c", version = "1.7", paper = "special", pagecentre=TRUE) #
-  print(p3)
-  dev.off()
-}
+  if (output_PNG == TRUE){
+    CairoPNG(width = 2325, height = 2246, file = paste(output_folder, "figure_1_c.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 1 c") #
+    print(p3)
+    dev.off()
+  }
+  
+  if (output_PDF == TRUE){
+    CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_1_c.pdf",sep=""), pointsize=40, bg = "white", title = "Figure 1 c", version = "1.7", paper = "special", pagecentre=TRUE) #
+    print(p3)
+    dev.off()
+  }
 }
 #########################################
 # Figure 1 d
@@ -323,10 +331,10 @@ PE_WE.max_val <- round(max(biodiverse_results_concatenated[,sigplot]), digits=ro
 PE_WE.limits_set <- c(0,PE_WE.max_val+.001)
 legend_text <- paste("Phylogenetic endemism", sep="")
 
-max_x <- map_extent@xmax+700000 # extent of map + space for legend
-min_x <- map_extent@xmin-700000 # other extent of map
-max_y <- map_extent@ymax+700000 # extent of map + space for legend
-min_y <- map_extent@ymin-700000 # other extent of map
+max_x <- map_extent@xmax + map_margin # extent of map + space for legend
+min_x <- map_extent@xmin - map_margin # other extent of map
+max_y <- map_extent@ymax + map_margin # extent of map + space for legend
+min_y <- map_extent@ymin - map_margin # other extent of map
 
 p4 <- ggplot(data=df)+ xlim(min_x, max_x) +  ylim(min_y, max_y) +
   geom_tile(aes_string(x=Axis_0, y=Axis_1, fill=sigplot)) + 
@@ -359,17 +367,17 @@ p4 <- ggplot(data=df)+ xlim(min_x, max_x) +  ylim(min_y, max_y) +
 print(p4)
 
 if (print_seperate_images == TRUE){
-if (output_PNG == TRUE){
-  CairoPNG(width = 2325, height = 2246, file = paste(output_folder, "figure_1_d.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 1 d") #
-  print(p4)
-  dev.off()
-}
-
-if (output_PDF == TRUE){
-  CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_1_d.pdf",sep=""), pointsize=40, bg = "white", title = "Figure 1", version = "1.7", paper = "special", pagecentre=TRUE) #
-  print(p4)
-  dev.off()
-}
+  if (output_PNG == TRUE){
+    CairoPNG(width = 2325, height = 2246, file = paste(output_folder, "figure_1_d.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 1 d") #
+    print(p4)
+    dev.off()
+  }
+  
+  if (output_PDF == TRUE){
+    CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_1_d.pdf",sep=""), pointsize=40, bg = "white", title = "Figure 1", version = "1.7", paper = "special", pagecentre=TRUE) #
+    print(p4)
+    dev.off()
+  }
 }
 # Get the widths
 gA <- ggplot_gtable(ggplot_build(p1))
@@ -385,15 +393,15 @@ gC$widths[2:3] <- maxWidth
 gD$widths[2:3] <- maxWidth
 
 if (output_PNG == TRUE){
-CairoPNG(width = 3323, height = 3200, file = paste(output_folder, "figure_1.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 1") #
-grid.arrange(gA, gB, gC, gD, nrow=2) # Arrange the four charts
-dev.off()
+  CairoPNG(width = 3323, height = 3200, file = paste(output_folder, "figure_1.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 1") #
+  grid.arrange(gA, gB, gC, gD, nrow=2) # Arrange the four charts
+  dev.off()
 }
 
 if (output_PDF == TRUE){
-CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_1.pdf",sep=""), pointsize=40, bg = "white", title = "Figure 1", version = "1.7", paper = "special", pagecentre=TRUE) #
-   grid.arrange(gA, gB, gC, gD, nrow=2)  # Arrange the four charts
-dev.off()
+  CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_1.pdf",sep=""), pointsize=40, bg = "white", title = "Figure 1", version = "1.7", paper = "special", pagecentre=TRUE) #
+     grid.arrange(gA, gB, gC, gD, nrow=2)  # Arrange the four charts
+  dev.off()
 }
 getwd()
 #Sys.setenv(R_GSCMD ="C:/Program Files/gs/gs9.10/bin/gswin64c.exe")
@@ -416,10 +424,10 @@ biodiverse_results_concatenated[, sigplot] <- factor(biodiverse_results_concaten
 Axis_0 <- "Axis_0"
 Axis_1 <- "Axis_1"
 
-max_x <- map_extent@xmax+700000 # extent of map + space for legend
-min_x <- map_extent@xmin-700000 # other extent of map
-max_y <- map_extent@ymax+700000 # extent of map + space for legend
-min_y <- map_extent@ymin-700000 # other extent of map
+max_x <- map_extent@xmax + map_margin # extent of map + space for legend
+min_x <- map_extent@xmin - map_margin # other extent of map
+max_y <- map_extent@ymax + map_margin # extent of map + space for legend
+min_y <- map_extent@ymin - map_margin # other extent of map
 
 map_plot_1 <- ggplot(data=biodiverse_results_concatenated) +  xlim(min_x, max_x) +  ylim(min_y, max_y) +
   geom_tile(aes_string(x=Axis_0, y=Axis_1, fill=sigplot))+ # using aes_string allows variables to be passed to ggplot
@@ -457,17 +465,17 @@ map_plot_1 <- ggplot(data=biodiverse_results_concatenated) +  xlim(min_x, max_x)
 print(map_plot_1)
 
 if (print_seperate_images == TRUE){
-if (output_PNG == TRUE){
-  CairoPNG(width = 2325, height = 2246, file = paste(output_folder, "figure_2_a.png",sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 2 a") #
-  print(map_plot_1)
-  dev.off()
-}
+  if (output_PNG == TRUE){
+    CairoPNG(width = 2325, height = 2246, file = paste(output_folder, "figure_2_a.png",sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 2 a") #
+    print(map_plot_1)
+    dev.off()
+  }
 
-if (output_PDF == TRUE){
-  CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_2_a.pdf",sep=""), pointsize=40, bg = "white", title = "Figure 2 a", version = "1.7", paper = "special", pagecentre=TRUE) #
-  print(map_plot_1)
-  dev.off()
-}
+  if (output_PDF == TRUE){
+    CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_2_a.pdf",sep=""), pointsize=40, bg = "white", title = "Figure 2 a", version = "1.7", paper = "special", pagecentre=TRUE) #
+    print(map_plot_1)
+    dev.off()
+  }
 }
 #########################################################################
 #Figure 2 b
@@ -482,10 +490,10 @@ biodiverse_results_concatenated[, sigplot] <- factor(biodiverse_results_concaten
 Axis_0 <- "Axis_0"
 Axis_1 <- "Axis_1"
 
-max_x <- map_extent@xmax+700000 # extent of map + space for legend
-min_x <- map_extent@xmin-700000 # other extent of map
-max_y <- map_extent@ymax+700000 # extent of map + space for legend
-min_y <- map_extent@ymin-700000 # other extent of map
+max_x <- map_extent@xmax + map_margin # extent of map + space for legend
+min_x <- map_extent@xmin - map_margin # other extent of map
+max_y <- map_extent@ymax + map_margin # extent of map + space for legend
+min_y <- map_extent@ymin - map_margin # other extent of map
 
 map_plot_2 <- ggplot(data=biodiverse_results_concatenated) +  xlim(min_x, max_x) +  ylim(min_y, max_y) +
   geom_tile(aes_string(x=Axis_0, y=Axis_1, fill=sigplot))+  
@@ -519,17 +527,17 @@ map_plot_2 <- ggplot(data=biodiverse_results_concatenated) +  xlim(min_x, max_x)
 
 print(map_plot_2)
 if (print_seperate_images == TRUE){
-if (output_PNG == TRUE){
-  CairoPNG(width = 2325, height = 2246, file = paste(output_folder, "figure_2_b.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 2 a") #
-  print(map_plot_2)
-  dev.off()
-}
-
-if (output_PDF == TRUE){
-  CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_2_b.pdf", sep=""), pointsize=40, bg = "white", title = "Figure 2 b", version = "1.7", paper = "special", pagecentre=TRUE) #
-  print(map_plot_2)
-  dev.off()
-}
+  if (output_PNG == TRUE){
+    CairoPNG(width = 2325, height = 2246, file = paste(output_folder, "figure_2_b.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 2 a") #
+    print(map_plot_2)
+    dev.off()
+  }
+  
+  if (output_PDF == TRUE){
+    CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_2_b.pdf", sep=""), pointsize=40, bg = "white", title = "Figure 2 b", version = "1.7", paper = "special", pagecentre=TRUE) #
+    print(map_plot_2)
+    dev.off()
+  }
 }
 #########################################################################
 #Figure 2 c
@@ -545,10 +553,10 @@ biodiverse_results_concatenated[, sigplot] <- factor(biodiverse_results_concaten
 Axis_0 <- "Axis_0"
 Axis_1 <- "Axis_1"
 
-max_x <- map_extent@xmax+700000 # extent of map + space for legend
-min_x <- map_extent@xmin-700000 # other extent of map
-max_y <- map_extent@ymax+700000 # extent of map + space for legend
-min_y <- map_extent@ymin-700000 # other extent of map
+max_x <- map_extent@xmax + map_margin # extent of map + space for legend
+min_x <- map_extent@xmin - map_margin # other extent of map
+max_y <- map_extent@ymax + map_margin # extent of map + space for legend
+min_y <- map_extent@ymin - map_margin # other extent of map
 
 map_plot_3 <- ggplot(data=biodiverse_results_concatenated) +  xlim(min_x, max_x) +  ylim(min_y, max_y) +
   geom_tile(aes_string(x=Axis_0, y=Axis_1, fill=sigplot))+ 
@@ -580,17 +588,17 @@ map_plot_3 <- ggplot(data=biodiverse_results_concatenated) +  xlim(min_x, max_x)
 
 print(map_plot_3)
 if (print_seperate_images == TRUE){
-if (output_PNG == TRUE){
-  CairoPNG(width = 2325, height = 2246, file = paste(output_folder, "figure_2_c.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 2 c") #
-  print(map_plot_3)
-  dev.off()
-}
-
-if (output_PDF == TRUE){
-  CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_2_c.pdf", sep=""), pointsize=40, bg = "white", title = "Figure 2 c", version = "1.7", paper = "special", pagecentre=TRUE) #
-  print(map_plot_3)
-  dev.off()
-}
+  if (output_PNG == TRUE){
+    CairoPNG(width = 2325, height = 2246, file = paste(output_folder, "figure_2_c.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 2 c") #
+    print(map_plot_3)
+    dev.off()
+  }
+  
+  if (output_PDF == TRUE){
+    CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_2_c.pdf", sep=""), pointsize=40, bg = "white", title = "Figure 2 c", version = "1.7", paper = "special", pagecentre=TRUE) #
+    print(map_plot_3)
+    dev.off()
+  }
 }
 #########################################################################
 #Figure 2 d
@@ -605,10 +613,10 @@ biodiverse_results_concatenated[, sigplot] <- factor(biodiverse_results_concaten
 Axis_0 <- "Axis_0"
 Axis_1 <- "Axis_1"
 
-max_x <- map_extent@xmax+700000 # extent of map + space for legend
-min_x <- map_extent@xmin-700000 # other extent of map
-max_y <- map_extent@ymax+700000 # extent of map + space for legend
-min_y <- map_extent@ymin-700000 # other extent of map
+max_x <- map_extent@xmax + map_margin # extent of map + space for legend
+min_x <- map_extent@xmin - map_margin # other extent of map
+max_y <- map_extent@ymax + map_margin # extent of map + space for legend
+min_y <- map_extent@ymin - map_margin # other extent of map
 
 map_plot_4 <- ggplot(data=biodiverse_results_concatenated) +  xlim(min_x, max_x) +  ylim(min_y, max_y) +
   geom_tile(aes_string(x=Axis_0, y=Axis_1, fill=sigplot))+
@@ -640,17 +648,17 @@ map_plot_4 <- ggplot(data=biodiverse_results_concatenated) +  xlim(min_x, max_x)
 
 print(map_plot_4)
 if (print_seperate_images == TRUE){
-if (output_PNG == TRUE){
-  CairoPNG(width = 2325, height = 2246, file = paste(output_folder, "figure_2_d.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 2 d") #
-  print(map_plot_4)
-  dev.off()
-}
-
-if (output_PDF == TRUE){
-  CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_2_d.pdf", sep=""), pointsize=40, bg = "white", title = "Figure 2 d", version = "1.7", paper = "special", pagecentre=TRUE) #
-  print(map_plot_4)
-  dev.off()
-}
+  if (output_PNG == TRUE){
+    CairoPNG(width = 2325, height = 2246, file = paste(output_folder, "figure_2_d.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 2 d") #
+    print(map_plot_4)
+    dev.off()
+  }
+  
+  if (output_PDF == TRUE){
+    CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_2_d.pdf", sep=""), pointsize=40, bg = "white", title = "Figure 2 d", version = "1.7", paper = "special", pagecentre=TRUE) #
+    print(map_plot_4)
+    dev.off()
+  }
 }
 #################################################
 
@@ -668,15 +676,15 @@ gC$widths[2:3] <- maxWidth
 gD$widths[2:3] <- maxWidth
 
 if (output_PNG == TRUE){
-CairoPNG(width = 3323, height = 3200, file = paste(output_folder, "figure_2.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "R Graphics Output") #
-grid.arrange(gA, gB, gC, gD, nrow=2) # Arrange the four charts
-dev.off()
+  CairoPNG(width = 3323, height = 3200, file = paste(output_folder, "figure_2.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "R Graphics Output") #
+  grid.arrange(gA, gB, gC, gD, nrow=2) # Arrange the four charts
+  dev.off()
 }
 
 if (output_PDF == TRUE){
-CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_2.pdf", sep=""), pointsize=40, bg = "white", family =  "HelvLight", title = "Figure 2", version = "1.7", paper = "special", pagecentre=TRUE) #
-grid.arrange(gA, gB, gC, gD, nrow=2)  # Arrange the four charts
-dev.off()
+  CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_2.pdf", sep=""), pointsize=40, bg = "white", family =  "HelvLight", title = "Figure 2", version = "1.7", paper = "special", pagecentre=TRUE) #
+  grid.arrange(gA, gB, gC, gD, nrow=2)  # Arrange the four charts
+  dev.off()
 }
 #Sys.setenv(R_GSCMD ="C:/Program Files/gs/gs9.10/bin/gswin64c.exe")
 #embed_fonts("figure_2.pdf", outfile = "figure_2_embed_scale.pdf")
@@ -693,10 +701,10 @@ biodiverse_results_concatenated[, sigplot] <- factor(biodiverse_results_concaten
 Axis_0 <- "Axis_0"
 Axis_1 <- "Axis_1"
 
-max_x <- map_extent@xmax+700000 # extent of map + space for legend
-min_x <- map_extent@xmin-700000 # other extent of map
-max_y <- map_extent@ymax+700000 # extent of map + space for legend
-min_y <- map_extent@ymin-700000 # other extent of map
+max_x <- map_extent@xmax + map_margin # extent of map + space for legend
+min_x <- map_extent@xmin - map_margin # other extent of map
+max_y <- map_extent@ymax + map_margin # extent of map + space for legend
+min_y <- map_extent@ymin - map_margin # other extent of map
 
 map_plot_5 <- ggplot(data=biodiverse_results_concatenated) + xlim(min_x, max_x) +  ylim(min_y, max_y) +
   geom_tile(aes_string(x=Axis_0, y=Axis_1, fill=sigplot))+ 
@@ -730,16 +738,16 @@ map_plot_5 <- ggplot(data=biodiverse_results_concatenated) + xlim(min_x, max_x) 
 
 print(map_plot_5)
 if (print_seperate_images == TRUE){
-if (output_PNG == TRUE){
- CairoPNG(width = 2000, height = 2000, file = paste(output_folder, "figure_3a.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "R Graphics Output") #
- print(map_plot_5)
- dev.off()
-}
-if (output_PDF == TRUE){
-  CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_3a.pdf", sep=""), pointsize=40, bg = "white", family =  "HelvLight", title = "Figure 3", version = "1.7", paper = "special", pagecentre=TRUE) #
-  print(map_plot_5)
-  dev.off()
-}
+  if (output_PNG == TRUE){
+    CairoPNG(width = 2000, height = 2000, file = paste(output_folder, "figure_3a.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "R Graphics Output") #
+    print(map_plot_5)
+    dev.off()
+  }
+  if (output_PDF == TRUE){
+    CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_3a.pdf", sep=""), pointsize=40, bg = "white", family =  "HelvLight", title = "Figure 3", version = "1.7", paper = "special", pagecentre=TRUE) #
+    print(map_plot_5)
+    dev.off()
+  }
 }
 ###################################################
 #Figure 3 PE vs PE_NULL2
@@ -775,16 +783,16 @@ fig_3_plot <- ggplot() +
 
 print(fig_3_plot)
 if (print_seperate_images == TRUE){
-if (output_PNG == TRUE){
-  CairoPNG(width = 2000, height = 2000, file = paste(output_folder, "figure_3b.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "R Graphics Output") #
-  print(fig_3_plot)
-  dev.off()
-}
-if (output_PDF == TRUE){
-  CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_3b.pdf", sep=""), pointsize=40, bg = "white", family =  "HelvLight", title = "Figure 3", version = "1.7", paper = "special", pagecentre=TRUE) #
-  print(fig_3_plot)
-  dev.off()
-}
+  if (output_PNG == TRUE){
+    CairoPNG(width = 2000, height = 2000, file = paste(output_folder, "figure_3b.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "R Graphics Output") #
+    print(fig_3_plot)
+    dev.off()
+  }
+  if (output_PDF == TRUE){
+    CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_3b.pdf", sep=""), pointsize=40, bg = "white", family =  "HelvLight", title = "Figure 3", version = "1.7", paper = "special", pagecentre=TRUE) #
+    print(fig_3_plot)
+    dev.off()
+  }
 }
 # Get the widths
 gA <- ggplot_gtable(ggplot_build(map_plot_5))
@@ -792,14 +800,14 @@ gB <- ggplot_gtable(ggplot_build(fig_3_plot))
 maxWidth <- unit.pmax(gA$widths[2:3], gB$widths[2:3])
 
 if (output_PNG == TRUE){
- CairoPNG(width = 2000, height = 4000, file = paste(output_folder, "figure_3.png", sep=""), canvas="transparent", bg = "transparent", units="px", dpi=72, title = "R Graphics Output") #
- grid.arrange(gA, gB, nrow=2, widths=c(1.1,1), heights=c(1.1,1))
- dev.off()
+   CairoPNG(width = 2000, height = 4000, file = paste(output_folder, "figure_3.png", sep=""), canvas="transparent", bg = "transparent", units="px", dpi=72, title = "R Graphics Output") #
+   grid.arrange(gA, gB, nrow=2, widths=c(1.1,1), heights=c(1.1,1))
+   dev.off()
 }
 if (output_PDF == TRUE){
-CairoPDF(width = 20, height = 40, file = paste(output_folder, "figure_3.pdf", sep=""), pointsize=40, bg = "white", title = "R Graphics Output", version = "1.7", paper = "special", pagecentre=TRUE) #
-  grid.arrange(gA, gB, nrow=2, widths=c(1.1,1), heights=c(1.1,1)) 
-dev.off()
+  CairoPDF(width = 20, height = 40, file = paste(output_folder, "figure_3.pdf", sep=""), pointsize=40, bg = "white", title = "R Graphics Output", version = "1.7", paper = "special", pagecentre=TRUE) #
+    grid.arrange(gA, gB, nrow=2, widths=c(1.1,1), heights=c(1.1,1)) 
+  dev.off()
 }
 
 #loadfonts()
@@ -843,17 +851,17 @@ fig_s1_plot <- ggplot() +
 
 print(fig_s1_plot)
 if (print_seperate_images == TRUE){
-if (output_PNG == TRUE){
-CairoPNG(width = 2323, height = 2486, file = paste(output_folder, "figure_SR_vs_PD.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "R Graphics Output") #
-print(fig_s1_plot)
-dev.off()
+  if (output_PNG == TRUE){
+  CairoPNG(width = 2323, height = 2486, file = paste(output_folder, "figure_SR_vs_PD.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "R Graphics Output") #
+  print(fig_s1_plot)
+  dev.off()
 }
 
 if (output_PDF == TRUE){
-CairoPDF(width = 20, height = 20, file = paste(output_folder, "figure_SR_vs_PD.pdf", sep=""), pointsize=40, bg = "white", title = "R Graphics Output", version = "1.7", paper = "special", pagecentre=TRUE) #
-print(fig_s1_plot)
-dev.off()
-}
+  CairoPDF(width = 20, height = 20, file = paste(output_folder, "figure_SR_vs_PD.pdf", sep=""), pointsize=40, bg = "white", title = "R Graphics Output", version = "1.7", paper = "special", pagecentre=TRUE) #
+  print(fig_s1_plot)
+  dev.off()
+  }
 }
 
 #########################################################################################
@@ -885,17 +893,17 @@ fig_s2_plot <- ggplot() +
 
 print(fig_s2_plot)
 if (print_seperate_images == TRUE){
-if (output_PNG == TRUE){
-CairoPNG(width = 2323, height = 2486, file = paste(output_folder, "figure_SR_vs_PE.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "R Graphics Output") #
-print(fig_s2_plot)
-dev.off()
-}
+  if (output_PNG == TRUE){
+    CairoPNG(width = 2323, height = 2486, file = paste(output_folder, "figure_SR_vs_PE.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "R Graphics Output") #
+    print(fig_s2_plot)
+    dev.off()
+  }
 
-if (output_PDF == TRUE){
-CairoPDF(width = 20, height = 20, file = paste(output_folder, "figure_SR_vs_PE.pdf", sep=""), pointsize=40, bg = "white", title = "R Graphics Output", version = "1.7", paper = "special", pagecentre=TRUE) #
-print(fig_s2_plot)
-dev.off()
-}
+  if (output_PDF == TRUE){
+    CairoPDF(width = 20, height = 20, file = paste(output_folder, "figure_SR_vs_PE.pdf", sep=""), pointsize=40, bg = "white", title = "R Graphics Output", version = "1.7", paper = "special", pagecentre=TRUE) #
+    print(fig_s2_plot)
+    dev.off()
+  }
 }
 
 #########################################################################################
@@ -926,17 +934,17 @@ fig_s3_plot <- ggplot() +
 
 print(fig_s3_plot)
 if (print_seperate_images == TRUE){
-if (output_PNG == TRUE){
-CairoPNG(width = 2323, height = 2486, file = paste(output_folder, "figure_PD_vs_PE.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "R Graphics Output") #
-print(fig_s3_plot)
-dev.off()
-}
-
-if (output_PDF == TRUE){
-CairoPDF(width = 20, height = 20, file = paste(output_folder, "figure_PD_vs_PE.pdf", sep=""), pointsize=40, bg = "white", title = "R Graphics Output", version = "1.7", paper = "special", pagecentre=TRUE) #
-print(fig_s3_plot)
-dev.off()
-}
+  if (output_PNG == TRUE){
+    CairoPNG(width = 2323, height = 2486, file = paste(output_folder, "figure_PD_vs_PE.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "R Graphics Output") #
+    print(fig_s3_plot)
+    dev.off()
+  }
+  
+  if (output_PDF == TRUE){
+    CairoPDF(width = 20, height = 20, file = paste(output_folder, "figure_PD_vs_PE.pdf", sep=""), pointsize=40, bg = "white", title = "R Graphics Output", version = "1.7", paper = "special", pagecentre=TRUE) #
+    print(fig_s3_plot)
+    dev.off()
+  }
 }
 # Get the widths
 gA <- ggplot_gtable(ggplot_build(fig_s1_plot))
@@ -950,13 +958,13 @@ gB$widths[2:3] <- maxWidth
 gC$widths[2:3] <- maxWidth
 
 if (output_PNG == TRUE){
-CairoPNG(width = 2323, height = 7458, file = paste(output_folder, "figure_4.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "R Graphics Output") #
-grid.arrange(gA, gB, gC, nrow=3, widths=c(1,1,1), heights=c(1,1,1)) 
-dev.off()
+  CairoPNG(width = 2323, height = 7458, file = paste(output_folder, "figure_4.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "R Graphics Output") #
+  grid.arrange(gA, gB, gC, nrow=3, widths=c(1,1,1), heights=c(1,1,1)) 
+  dev.off()
 }
 
 if (output_PDF == TRUE){
-CairoPDF(width = 20, height = 60, file = paste(output_folder, "figure_4.pdf", sep=""), pointsize=40, bg = "white", title = "R Graphics Output", version = "1.7", paper = "special", pagecentre=TRUE) #
-grid.arrange(gA, gB, gC, nrow=3, widths=c(1,1,1), heights=c(1,1,1)) 
-dev.off()
+  CairoPDF(width = 20, height = 60, file = paste(output_folder, "figure_4.pdf", sep=""), pointsize=40, bg = "white", title = "R Graphics Output", version = "1.7", paper = "special", pagecentre=TRUE) #
+  grid.arrange(gA, gB, gC, nrow=3, widths=c(1,1,1), heights=c(1,1,1)) 
+  dev.off()
 }
