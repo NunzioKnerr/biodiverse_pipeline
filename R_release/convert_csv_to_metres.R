@@ -33,7 +33,7 @@ x_name <- paste("x_",projection_suffix, sep="")
 y_name <- paste("y_",projection_suffix, sep="")
 convert_to_metres<-as.data.frame(convert_to_metres)
 #View(convert_to_metres)
-convert_to_metres <- convert_to_metres[,1:2] #just get the columns that have converted values
+convert_to_metres <- convert_to_metres[,3:4] #just get the columns that have converted values
 colnames(convert_to_metres) <- c(x_name, y_name)#set the column names
 #View(convert_to_metres)
 points_in_metres <- cbind(locs, convert_to_metres)# merge the 2 datasets for writing csv

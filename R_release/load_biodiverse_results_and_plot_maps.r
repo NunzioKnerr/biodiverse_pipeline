@@ -230,17 +230,17 @@ p2 <- ggplot(data=df)+ xlim(min_x, max_x) +  ylim(min_y, max_y) +
 print(p2)
 
 if (print_seperate_images == TRUE){
-if (output_PNG == TRUE){
-  CairoPNG(width = 2325, height = 2246, file = paste(output_folder, "figure_1_b.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 1 b") #
-  print(p2)
-  dev.off()
-}
-
-if (output_PDF == TRUE){
-  CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_1_b.pdf",sep=""), pointsize=40, bg = "white", title = "Figure 1 b", version = "1.7", paper = "special", pagecentre=TRUE) #
-  print(p2)
-  dev.off()
-}
+  if (output_PNG == TRUE){
+    CairoPNG(width = 2325, height = 2246, file = paste(output_folder, "figure_1_b.png", sep=""), canvas="white", bg = "white", units="px", dpi=72, title = "Figure 1 b") #
+    print(p2)
+    dev.off()
+  }
+  
+  if (output_PDF == TRUE){
+    CairoPDF(width = 36.74, height = 39.19, file = paste(output_folder, "figure_1_b.pdf",sep=""), pointsize=40, bg = "white", title = "Figure 1 b", version = "1.7", paper = "special", pagecentre=TRUE) #
+    print(p2)
+    dev.off()
+  }
 }
 #########################################
 # Figure 1 c
