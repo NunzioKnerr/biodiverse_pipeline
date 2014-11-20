@@ -13,21 +13,21 @@ library(rgdal)
 
 myFont <- choose_font(c("HelvLight", "Arial", "sans"), quiet = TRUE) #load a font if available
 
-base_dir <- 'C:/shawn/svn/bd_pipeline/'
-biodiverse_pipeline_install_folder <- base_dir
-
-data_dir <- paste0(base_dir, "pipeline_test/")
-data_dir <- "C:/shawn/svn/CANAPE_test/"
-
-
-observed_data  <- paste0(data_dir, "spatial_results.csv")
-rand_results_file <- paste0(data_dir, "rand_results.csv")
-map_shape_file <- paste0(base_dir, "shape_files/coastline_albers.shp")
-output_folder  <- "C:/biodiverse_pipeline/pipeline_test/"
+base_dir <- 'C:/shawn/svn/bd_pipeline/'  #  CHANGE THIS PATH TO POINT TO YOUR INSTALLATION
+#data_dir <- paste0(base_dir, "pipeline_test/")
+data_dir <- "C:/shawn/svn/CANAPE_test/" #  CHANGE THIS PATH TO POINT TO YOUR DATA
+#output_folder  <- "C:/biodiverse_pipeline/pipeline_test/"
 output_folder  <- data_dir
 
-observed_data <- read.table(observed_data, header=T,sep=",")
-rand_results  <- read.table(rand_results_file, header=T,sep=",")
+fname_spatial_results <- "spatial_results.csv"
+fname_rand_results    <- "rand_results.csv"
+
+observed_data_file  <- paste0(data_dir, fname_spatial_results)
+rand_results_file <- paste0(data_dir, fname_rand_results)
+map_shape_file <- paste0(base_dir, "shape_files/coastline_albers.shp")
+
+observed_data <- read.csv(observed_data_file)
+rand_results  <- read.csv(rand_results_file)
 biodiverse_results_concatenated <- cbind(observed_data, rand_results)
 #biodiverse_results_concatenated<- biodiverse_results_concatenated[!is.na(biodiverse_results_concatenated[,4]),]#trim NA.s
 #View(biodiverse_results_concatenated)
@@ -38,7 +38,7 @@ output_PNG <- TRUE
 output_PDF <- FALSE
 
 
-map_data <- readShapePoly(map_shape_file)
+map_data   <- readShapePoly(map_shape_file)
 map_extent <- extent(map_data)
 
 #############################################################################
