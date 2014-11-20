@@ -23,7 +23,7 @@ observed_data <- paste0(data_dir, "spatial_results.csv")
 randomisation_results  <- paste0(data_dir, "rand_results.csv")
 map_shape_file <- paste0(base_dir, "shape_files/coastline_albers.shp")
 output_folder <-  paste0("C:/biodiverse_pipeline/pipeline_test/")
-output_folder <- paste0(base_dir, 'blah')
+output_folder <- paste0(data_dir, 'blah')
 
 print_seperate_images <- TRUE
 output_PNG <- TRUE
@@ -185,6 +185,7 @@ if (print_seperate_images == TRUE){
     dev.off()
   }
 }
+
 
 ########################################################
 # Figure 1 b
@@ -608,7 +609,7 @@ if (print_seperate_images == TRUE){
 #Figure 2 d
 ########################################################################
 map_text <- "Relative Phylogenetic Endemism"
-sigplot <- "P_PHYLO_RPE2_ONE_STEP_SIG"
+sigplot <- "P_PHYLO_RPE2_SIG"
 col_scheme <- c("Very Highly Sig" = "royalblue4","Highly Sig" = "royalblue1","Not Sig" = "lightgoldenrodyellow", "Very Sig Low" = "red4", "Sig Low" = "red")
 legend_order <- c("Very Sig Low","Sig Low","Not Sig","Highly Sig","Very Highly Sig")
 legend_labels <- c("Very Highly Sig" = "> 0.99","Highly Sig" = "> 0.975","Not Sig" = "Not significant", "Sig Low" = "< 0.025", "Very Sig Low" = "< 0.01")

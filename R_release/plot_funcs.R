@@ -9,12 +9,17 @@ get_legend_rpe = function () {
 }
 
 get_legend_two_tailed_sig = function () {
-  
+  col_scheme <- c("Very Highly Sig" = "royalblue4","Highly Sig" = "royalblue1","Not Sig" = "lightgoldenrodyellow", "Very Sig Low" = "red4", "Sig Low" = "red")
+  legend_order <- c("Very Sig Low","Sig Low","Not Sig","Highly Sig","Very Highly Sig")
+  legend_labels <- c("Very Highly Sig" = "> 0.99","Highly Sig" = "> 0.975","Not Sig" = "Not significant", "Sig Low" = "< 0.025", "Very Sig Low" = "< 0.01")
+
+  results = list(col_scheme=col_scheme, legend_order=legend_order, legend_labels=legend_labels)
+  return(results)
 }
 
 
-
-plot_rpe_map <- function (df, map_text="", sig_col_name, output_folder, map_margin = 700000, legend_list) {
+#  plot categorical maps such as significance thresholded values or CANAPE
+plot_categorical_map <- function (df, map_text="", sig_col_name, output_folder, map_margin = 700000, legend_list) {
 
   col_scheme    = legend_list$col_scheme
   legend_order  = legend_list$legend_order
@@ -35,14 +40,13 @@ plot_rpe_map <- function (df, map_text="", sig_col_name, output_folder, map_marg
     geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
     coord_fixed() +
 
-    #  scale bar stuff
     annotate("rect", xmin = -750000, xmax = -250000, ymin = -4500000, ymax = -4550000, fill = "black", colour = "black", alpha = 1) +
     annotate("rect", xmin = -250000, xmax =  250000, ymin = -4500000, ymax = -4550000, fill = "white", colour = "black", alpha = 1) +
     annotate("text", label = "0", x = -750000, y = -4650000, size=rel(18),  face = 'plain', family = myFont) +
     annotate("text", label = "500", x = -250000, y = -4650000, size=rel(18),  face = 'plain', family = myFont) +
     annotate("text", label = "1000", x = 250000, y = -4650000, size=rel(18),  face = 'plain', family = myFont) +
-    annotate("text", label = "km", x = 620000, y = -4650000, size=rel(18),  face = 'plain', family = myFont) +
-
+    annotate("text", label = "km", x = 620000, y = -4650000, size=rel(18),  face = 'plain', family = myFont)
+  
     theme(text = element_text(family = myFont),
           strip.background = element_blank(),
           axis.line=element_blank(),axis.text.x=element_blank(),
@@ -82,4 +86,18 @@ plot_rpe_map <- function (df, map_text="", sig_col_name, output_folder, map_marg
 
 }
 
+
+#  we should be able to factor all this out, but it does not work at the moment
+get_scale_bar_components = function () {
+  #  scale bar stuff
+  components = 
+  annotate("rect", xmin = -750000, xmax = -250000, ymin = -4500000, ymax = -4550000, fill = "black", colour = "black", alpha = 1) +
+  annotate("rect", xmin = -250000, xmax =  250000, ymin = -4500000, ymax = -4550000, fill = "white", colour = "black", alpha = 1) +
+  annotate("text", label = "0", x = -750000, y = -4650000, size=rel(18),  face = 'plain', family = myFont) +
+  annotate("text", label = "500", x = -250000, y = -4650000, size=rel(18),  face = 'plain', family = myFont) +
+  annotate("text", label = "1000", x = 250000, y = -4650000, size=rel(18),  face = 'plain', family = myFont) +
+  annotate("text", label = "km", x = 620000, y = -4650000, size=rel(18),  face = 'plain', family = myFont)
+  
+  return (components)
+}
 
