@@ -10,8 +10,8 @@
 #Date:26/05/2014
 #
 ##########################################################################################################
-input_tree_file <- paste0("./pipeline_test/tree.nex")
-out_file <- paste0("./pipeline_test/tree.bts")
+input_tree_file <- "C:/GIS-Datasets/Asteraceae_Sep_2014/biodiverse_daisies_species_maxent/tree_small_branches/daisy_species3_nexus.tre"
+out_file <- "C:/GIS-Datasets/Asteraceae_Sep_2014/biodiverse_daisies_species_maxent/tree_small_branches/daisy_species3_nexus.bts"
 #
 source("./R_release/biodiverse_path_reference.R")
 

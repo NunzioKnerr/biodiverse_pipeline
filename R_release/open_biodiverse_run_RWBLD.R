@@ -17,10 +17,10 @@
 #
 source("./R_release/biodiverse_path_reference.R")
 input_bds_file <- "C:/GIS-Datasets/Australian_Genera_Angiosperms_October_2014/Australian_genera_angiosperms_merged_records_46_records_added_trimmed.bds"
-input_bts_file <- "C:/GIS-Datasets/Australian_Genera_Angiosperms_October_2014/Australian_genera_October_2014_tree_Biodiverse_trimmed.bts"
-calcs <- paste("calc_endemism_whole,calc_pd,calc_pe,calc_phylo_rpd1,calc_phylo_rpd2,calc_phylo_rpe1,calc_phylo_rpe2")#,calc_phylo_rpe2_branch_stats
+input_bts_file <-"C:/GIS-Datasets/Australian_Genera_Angiosperms_October_2014/Australian_genera_October_2014_tree_Biodiverse.bts_trimmed.bts"
+calcs <- paste("calc_endemism_whole,calc_pd,calc_pe,calc_phylo_rpd1,calc_phylo_rpd2,calc_phylo_rpe1,calc_phylo_rpe2,calc_phylo_rpe2_branch_stats")
 #calcs = paste("calc_numeric_label_stats")
-cmd <- paste ("perl ", biodiverse_pipeline_install_folder, "perl/run_analyses.pl", sep="")
+cmd <- paste("perl ", biodiverse_pipeline_install_folder, "perl/run_analyses.pl", sep="")
 #
 #
 ###### do not edit below #########

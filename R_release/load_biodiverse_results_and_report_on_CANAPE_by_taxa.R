@@ -3,10 +3,11 @@ library(dplyr)
 
 #getwd()
 source("./R_release/biodiverse_path_reference.R")
-biodiverse_group_data <- paste0("./pipeline_test/biodiverse_analysed_output_groups.csv")
-observed_data <-  paste0("./pipeline_test/biodiverse_analysed_output_SPATIAL_RESULTS.csv")
-randomisation_results <-  paste0("./pipeline_test/biodiverse_analysed_output_rand--SPATIAL_RESULTS.csv")
-output_file <- paste0("./pipeline_test/CANAPE_summary_by_taxa.csv")
+data_dir <- "C:/GIS-Datasets/Australian_Genera_Angiosperms_October_2014/"
+biodiverse_group_data <- paste0(data_dir,"Australian_genera_angiosperms_biodiverse_analysed_output_groups.csv")
+observed_data <- paste0(data_dir, "Australian_genera_angiosperms_biodiverse_analysed_output_SPATIAL_RESULTS.csv")
+randomisation_results  <- paste0(data_dir, "Australian_genera_angiosperms_biodiverse_analysed_output_rand--SPATIAL_RESULTS.csv")
+output_file <- paste0(data_dir,"CANAPE_summary_by_taxa.csv")
 
 biodiverse_group_data <- read.table(biodiverse_group_data, header=T,sep=",")
 #View(biodiverse_group_data)
@@ -195,3 +196,4 @@ CANAPE_summary <- merge(CANAPE_summary, in_palaeos ,by.x="Taxa",by.y="Taxa",all.
 #View(CANAPE_summary)
 
 write.csv(CANAPE_summary, file=output_file,  row.names = FALSE)
+

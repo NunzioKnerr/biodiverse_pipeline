@@ -14,15 +14,15 @@ library(rgdal)
 myFont <- choose_font(c("HelvLight", "Arial", "sans"), quiet = TRUE)#load a font if available
 
 source("./R_release/biodiverse_path_reference.R")
-data_dir <- "C:/GIS-Datasets/Australian_Genera_Angiosperms_October_2014/"
-observed_data <- paste0(data_dir, "Australian_genera_angiosperms_merged_records_46_records_added_trimmed_analysed_output_SPATIAL_RESULTS.csv")
-randomisation_results  <- paste0(data_dir,  "Australian_genera_angiosperms_merged_records_46_records_added_trimmed_analysed_output_rand--SPATIAL_RESULTS.csv")
-map_shape_file <- "C:/biodiverse_pipeline/shape_files/coastline_albers.shp"
-output_folder <- "C:/GIS-Datasets/Australian_Genera_Angiosperms_October_2014/again/"
+data_dir <- "C:/GIS-Datasets/rails/"
+observed_data <- paste0(data_dir, "rails_biodiverse_results_SPATIAL_RESULTS.csv")
+randomisation_results  <- paste0(data_dir, "rails_biodiverse_results_rand--SPATIAL_RESULTS.csv")
+map_shape_file <- paste0("C:/GIS-Datasets/rails/countries_3410/countries_3410.shp")
+output_folder <-  paste0("C:/biodiverse_pipeline/pipeline_test/")
 
 print_seperate_images <- TRUE
 output_PNG <- TRUE
-output_PDF <- FALSE
+output_PDF <- TRUE
 
 observed_data <- read.table(observed_data, header=T,sep=",")
 randomisation_results <- read.table(randomisation_results, header=T,sep=",")
@@ -32,7 +32,28 @@ biodiverse_results_concatenated <- cbind(observed_data, randomisation_results)
 
 map_data <- readShapePoly(map_shape_file)
 map_extent <- extent(map_data)
+projection(map_data)
+map_data_df <- fortify(map_data)
 
+
+wmap <- readOGR(dsn="C:/GIS-Datasets/rails/countries_3410", layer="countries_3410")
+# convert to dataframe
+projection(wmap)
+wmap_df <- fortify(wmap)
+
+
+map_shape_file <- paste0("C:/GIS-Datasets/rails/countries_shp/countries.shp")
+map_data <- readShapePoly(map_shape_file)
+wmap <- readOGR(dsn="C:/GIS-Datasets/rails/countries_shp", layer="countries")
+oldproj <- paste0(" +init=epsg:4326") #this is WGS84 most common used for google earth etc. in decimal degrees
+newproj <- paste0(" +init=epsg:3577") #albers equal area projection
+proj4string(map_data) <- CRS(oldproj)#asign the old projection
+convert_to_metres <- spTransform(wmap, CRS=CRS(newproj))  # spTransform makes the projection
+
+# library(gpclib); gpclibPermit() # uncomment if rgeos not installed
+sport.f <- fortify(convert_to_metres)
+
+plot(sport.f)
 #############################################################################
 # Functions for populating new columns with text of significance
 #############################################################################
@@ -70,7 +91,7 @@ significance_super_fun <- function(x, y, z){
 #Create new columns in dataframe and populate them using the functions above
 ###################################################################################
 
-targets <- c("PHYLO_RPD1", "PHYLO_RPD2", "PD_P", "PE_WE_P", "PD_P_per_taxon", "PHYLO_RPE2")
+targets <- c("PHYLO_RPD1", "PHYLO_RPD2", "PD_P", "PE_WE_P", "PD_P_per_taxon")
 
 for (name in targets) {
   colname <- paste0("P_", name)  #  prepend the P_ since we want the proportions, saves some typing above
@@ -83,7 +104,7 @@ for (name in targets) {
 
 #This uses the 2 pass test to pull out palaeo, neo and super for RPE
 #  SWL - could be refactored into a function
-biodiverse_results_concatenated$P_PHYLO_RPE1_CANAPE_SIG <- sapply(
+biodiverse_results_concatenated$P_PHYLO_RPE1_SIG <- sapply(
   1:nrow(biodiverse_results_concatenated), 
   function(x) significance_super_fun(
     biodiverse_results_concatenated$P_PE_WE_P[x], 
@@ -92,7 +113,7 @@ biodiverse_results_concatenated$P_PHYLO_RPE1_CANAPE_SIG <- sapply(
   )
 )
 
-biodiverse_results_concatenated$P_PHYLO_RPE2_CANAPE_SIG <- sapply(
+biodiverse_results_concatenated$P_PHYLO_RPE2_SIG <- sapply(
   1:nrow(biodiverse_results_concatenated), 
   function(x) significance_super_fun(
     biodiverse_results_concatenated$P_PE_WE_P[x], 
@@ -133,35 +154,35 @@ ENDW_RICHNESS.hs.round <- round(ENDW_RICHNESS.hs, digits=rounding_digits)
 ENDW_RICHNESS.max_val <- round(max(biodiverse_results_concatenated[,sigplot]), digits=0)
 ENDW_RICHNESS.limits_set <- c(0,ENDW_RICHNESS.max_val+0.1)
 
-p1 <- ggplot(data=df) + xlim(min_x, max_x) +  ylim(min_y, max_y) +  
-  geom_tile(aes_string(x=Axis_0, y=Axis_1, fill=sigplot)) + 
-  scale_fill_gradientn(name = legend_text, limits = ENDW_RICHNESS.limits_set, colours = colours, breaks= ENDW_RICHNESS.hs.round, guide = guide_colourbar(direction = "horizontal", title.position = "top", title.hjust=0.5, title.vjust=0.9, label.position="bottom", label.hjust = 0.5, label.vjust = 0.5, raster=FALSE)) + #
-  geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
-  coord_fixed() +
-  annotate("text", label = sigplot, x = 1000, y = -4850000, size=rel(10),  face = 'plain', family = myFont) +
-  annotate("text", label = "a", x = 2000000, y = -4750000, size=rel(20),  face = 'plain', family = myFont) +
-  annotate("rect", xmin  = -750000, xmax = -250000, ymin = -4500000, ymax = -4550000, fill = "black", colour = "black", alpha = 1)+
-  annotate("rect", xmin  = -250000, xmax =  250000, ymin = -4500000, ymax = -4550000, fill = "white", colour = "black", alpha = 1)+
-  annotate("text", label = "0",     x = -750000, y = -4650000, size=rel(18), face = 'plain', family = myFont) +
-  annotate("text", label = "500",   x = -250000, y = -4650000, size=rel(18), face = 'plain', family = myFont) +
-  annotate("text", label = "1000",  x =  250000, y = -4650000, size=rel(18), face = 'plain', family = myFont) +
-  annotate("text", label = "km",    x =  620000, y = -4650000, size=rel(18), face = 'plain', family = myFont) +
-  theme( 
-    text = element_text(family = myFont),
-    strip.background = element_blank(),
-    axis.line    = element_blank(),      axis.text.x  = element_blank(),
-    axis.text.y  = element_blank(),      axis.ticks   = element_blank(),
-    axis.title.x = element_blank(),      axis.title.y = element_blank(),
-    legend.key.height = unit(1.1, "cm"), legend.margin   = unit(2, "cm"),
-    legend.key.width  = unit(6.2, "cm"), legend.position = c(.5, 0.93),
-    legend.direction  ='horizontal',
-    legend.title      = element_text(colour = 'black', angle = 0, size=rel(4), face = 'plain', family = myFont),
-    legend.text       = element_text(colour = 'black', angle = 0, size=rel(4), face = 'plain', family = myFont),
-    panel.grid        = element_blank(),panel.background=element_blank(),
-    plot.background   = element_rect(colour = "black", fill="white", size = 1), plot.margin=unit(c(0,0,-0.61,-0.61), "line")
-  )
+p1 <- ggplot(data=df) + #xlim(min_x, max_x) +  ylim(min_y, max_y) +  
+  #geom_tile(aes_string(x=Axis_0, y=Axis_1, fill=sigplot)) + 
+  #scale_fill_gradientn(name = legend_text, limits = ENDW_RICHNESS.limits_set, colours = colours, breaks= ENDW_RICHNESS.hs.round, guide = guide_colourbar(direction = "horizontal", title.position = "top", title.hjust=0.5, title.vjust=0.9, label.position="bottom", label.hjust = 0.5, label.vjust = 0.5, raster=FALSE)) + #
+  geom_polygon(data=wmap_df, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
+  coord_fixed() #+
+#   #annotate("text", label = "a", x = 2000000, y = -4750000, size=rel(20),  face = 'plain', family = myFont) +
+#   annotate("rect", xmin  = -750000, xmax = -250000, ymin = -4500000, ymax = -4550000, fill = "black", colour = "black", alpha = 1)+
+#   annotate("rect", xmin  = -250000, xmax =  250000, ymin = -4500000, ymax = -4550000, fill = "white", colour = "black", alpha = 1)+
+#   annotate("text", label = "0",     x = -750000, y = -4650000, size=rel(18), face = 'plain', family = myFont) +
+#   annotate("text", label = "500",   x = -250000, y = -4650000, size=rel(18), face = 'plain', family = myFont) +
+#   annotate("text", label = "1000",  x =  250000, y = -4650000, size=rel(18), face = 'plain', family = myFont) +
+#   annotate("text", label = "km",    x =  620000, y = -4650000, size=rel(18), face = 'plain', family = myFont) +
+#   theme( 
+#     text = element_text(family = myFont),
+#     strip.background = element_blank(),
+#     axis.line    = element_blank(),      axis.text.x  = element_blank(),
+#     axis.text.y  = element_blank(),      axis.ticks   = element_blank(),
+#     axis.title.x = element_blank(),      axis.title.y = element_blank(),
+#     legend.key.height = unit(1.1, "cm"), legend.margin   = unit(2, "cm"),
+#     legend.key.width  = unit(6.2, "cm"), legend.position = c(.5, 0.93),
+#     legend.direction  ='horizontal',
+#     legend.title      = element_text(colour = 'black', angle = 0, size=rel(4), face = 'plain', family = myFont),
+#     legend.text       = element_text(colour = 'black', angle = 0, size=rel(4), face = 'plain', family = myFont),
+#     panel.grid        = element_blank(),panel.background=element_blank(),
+#     plot.background   = element_rect(colour = "black", fill="white", size = 1), plot.margin=unit(c(0,0,-0.61,-0.61), "line")
+#   )
 
 print(p1)
+?fortify
 
 
 if (print_seperate_images == TRUE){
@@ -206,7 +227,6 @@ p2 <- ggplot(data=df)+ xlim(min_x, max_x) +  ylim(min_y, max_y) +
   scale_fill_gradientn(name = legend_text, limits = ENDW_WE.limits_set, colours = colours, breaks= ENDW_WE.hs.round,  guide = guide_colourbar(direction = "horizontal", title.position = "top",  title.hjust=0.5, title.vjust=0.99, label.position="bottom", label.hjust = 0.5, label.vjust = 0.5, raster=FALSE)) + #
   geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
   coord_fixed() +
-  annotate("text", label = sigplot, x = 1000, y = -4850000, size=rel(10),  face = 'plain', family = myFont) +
   #annotate("text", label = "b", x = -1700000, y = -4750000, size =rel(20), face = 'plain', family = myFont, ) +
   annotate("rect", xmin = -750000, xmax = -250000, ymin = -4500000, ymax = -4550000, fill = "black", colour = "black", alpha = 1)+
   annotate("rect", xmin = -250000, xmax = 250000, ymin = -4500000, ymax = -4550000, fill = "white", colour = "black", alpha = 1)+
@@ -271,7 +291,6 @@ p3 <- ggplot(data=df) + xlim(min_x, max_x) +  ylim(min_y, max_y) +
   scale_fill_gradientn(name = legend_text, limits = PD.limits_set, colours = colours, breaks= PD.hs.round, guide = guide_colourbar(direction = "horizontal", title.position = "bottom", title.hjust=0.5, title.vjust=0.1, label.position="bottom", label.hjust = 0.5, label.vjust = 0.5, raster=FALSE)) + 
   geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
   coord_fixed() +
-  annotate("text", label = sigplot, x = 1000, y = -4850000, size=rel(10),  face = 'plain', family = myFont) +
   #annotate("text", label = "c", x =  2000000, y = -1000000, size=rel(20), face = 'plain', family = myFont) +
   annotate("rect", xmin = -750000, xmax = -250000, ymin = -4500000, ymax = -4550000, fill = "black", colour = "black", alpha = 1)+
   annotate("rect", xmin = -250000, xmax = 250000, ymin = -4500000, ymax = -4550000, fill = "white", colour = "black", alpha = 1)+
@@ -338,7 +357,6 @@ p4 <- ggplot(data=df)+ xlim(min_x, max_x) +  ylim(min_y, max_y) +
   scale_fill_gradientn(name = legend_text, limits = PE_WE.limits_set, colours = colours, breaks= PE_WE.hs.round, guide = guide_colourbar(direction = "horizontal", title.position = "bottom", title.hjust=0.5, title.vjust=0.1, label.position="bottom", label.hjust = 0.5, label.vjust = 0.5, raster=FALSE)) + 
   geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
   coord_fixed() +
-  annotate("text", label = sigplot, x = 1000, y = -4850000, size=rel(10),  face = 'plain', family = myFont) +
   #annotate("text", label = "d", x = -1700000, y = -1000000, size=rel(20), face = 'plain', family = myFont) +
   annotate("rect", xmin = -750000, xmax = -250000, ymin = -4500000, ymax = -4550000, fill = "black", colour = "black", alpha = 1)+
   annotate("rect", xmin = -250000, xmax = 250000, ymin = -4500000, ymax = -4550000, fill = "white", colour = "black", alpha = 1)+
@@ -435,7 +453,6 @@ map_plot_1 <- ggplot(data=biodiverse_results_concatenated) +  xlim(min_x, max_x)
   geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
   coord_fixed() +
   #labs(x=NULL, y=NULL) +
-  annotate("text", label = sigplot, x = 1000, y = -4850000, size=rel(10),  face = 'plain', family = myFont) +
   #annotate("text", label = "a", x = 2000000, y = -4750000, size=rel(20),  face = 'plain', family = myFont) +
   annotate("rect", xmin = -750000, xmax = -250000, ymin = -4500000, ymax = -4550000, fill = "black", colour = "black", alpha = 1)+
   annotate("rect", xmin = -250000, xmax = 250000, ymin = -4500000, ymax = -4550000, fill = "white", colour = "black", alpha = 1)+
@@ -500,7 +517,6 @@ map_plot_2 <- ggplot(data=biodiverse_results_concatenated) +  xlim(min_x, max_x)
   theme_minimal() + 
   geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
   coord_fixed() +
-  annotate("text", label = sigplot, x = 1000, y = -4850000, size=rel(10),  face = 'plain', family = myFont) +
   #annotate("text", label = "b", x = -1700000, y = -4750000, size =rel(20), face = 'plain', family = myFont) +
   annotate("rect", xmin = -750000, xmax = -250000, ymin = -4500000, ymax = -4550000, fill = "black", colour = "black", alpha = 1)+
   annotate("rect", xmin = -250000, xmax = 250000, ymin = -4500000, ymax = -4550000, fill = "white", colour = "black", alpha = 1)+
@@ -563,7 +579,6 @@ map_plot_3 <- ggplot(data=biodiverse_results_concatenated) +  xlim(min_x, max_x)
   scale_fill_manual(values = col_scheme, labels=legend_labels, name=map_text, guide = guide_legend(direction = "horizontal", title.position = "bottom", title.hjust=0.5, title.vjust=.5, label.position="bottom", label.hjust = 0.5, label.vjust = 0.1))+
   geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
   coord_fixed() +
-  annotate("text", label = sigplot, x = 1000, y = -4850000, size=rel(10),  face = 'plain', family = myFont) +
   annotate("rect", xmin = -750000, xmax = -250000, ymin = -4500000, ymax = -4550000, fill = "black", colour = "black", alpha = 1)+
   annotate("rect", xmin = -250000, xmax = 250000, ymin = -4500000, ymax = -4550000, fill = "white", colour = "black", alpha = 1)+
   annotate("text", label = "0", x = -750000, y = -4650000, size=rel(18),  face = 'plain', family = myFont) +
@@ -605,7 +620,7 @@ if (output_PDF == TRUE){
 #Figure 2 d
 ########################################################################
 map_text <- "Relative Phylogenetic Endemism"
-sigplot <- "P_PHYLO_RPE2_SIG"
+sigplot <- "P_PHYLO_RPE2_ONE_STEP_SIG"
 col_scheme <- c("Very Highly Sig" = "royalblue4","Highly Sig" = "royalblue1","Not Sig" = "lightgoldenrodyellow", "Very Sig Low" = "red4", "Sig Low" = "red")
 legend_order <- c("Very Sig Low","Sig Low","Not Sig","Highly Sig","Very Highly Sig")
 legend_labels <- c("Very Highly Sig" = "> 0.99","Highly Sig" = "> 0.975","Not Sig" = "Not significant", "Sig Low" = "< 0.025", "Very Sig Low" = "< 0.01")
@@ -624,7 +639,6 @@ map_plot_4 <- ggplot(data=biodiverse_results_concatenated) +  xlim(min_x, max_x)
   scale_fill_manual(values = col_scheme, labels=legend_labels, name=map_text, guide = guide_legend(direction = "horizontal", title.position = "bottom", title.hjust=0.5, title.vjust=.5, label.position="bottom", label.hjust = 0.5, label.vjust = 0.1))+ 
   geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
   coord_fixed() +
-  annotate("text", label = sigplot, x = 1000, y = -4850000, size=rel(10),  face = 'plain', family = myFont) +
   annotate("rect", xmin = -750000, xmax = -250000, ymin = -4500000, ymax = -4550000, fill = "black", colour = "black", alpha = 1)+
   annotate("rect", xmin = -250000, xmax = 250000, ymin = -4500000, ymax = -4550000, fill = "white", colour = "black", alpha = 1)+
   annotate("text", label = "0", x = -750000, y = -4650000, size=rel(18),  face = 'plain', family = myFont) +
@@ -694,7 +708,7 @@ dev.off()
 ########################################################
 
 map_text <- "Categorical Analysis of Neo- And Paleo- Endemism"
-sigplot <- "P_PHYLO_RPE2_CANAPE_SIG"
+sigplot <- "P_PHYLO_RPE2_SIG"
 col_scheme <- c("Palaeo" = "royalblue1","Not Sig" = "lightgoldenrodyellow", "Neo" = "red", "Super" = "#9D00FF", "Mixed"= "#CB7FFF")
 legend_order <-c("Neo","Palaeo", "Not Sig", "Mixed", "Super")
 legend_labels <- c("Neo"="Neo","Palaeo"="Paleo", "Not Sig"="Not significant", "Mixed"="Mixed", "Super"="Super")
@@ -713,7 +727,6 @@ map_plot_5 <- ggplot(data=biodiverse_results_concatenated) + xlim(min_x, max_x) 
   scale_fill_manual(values = col_scheme,  labels=legend_labels, name="", guide = guide_legend(direction = "horizontal", title.position = "bottom", title.hjust=0.5, title.vjust=0.5, label.position="bottom", label.hjust = 0.5, label.vjust = 0.1, lineheight=2))+  
   labs(title=map_text, aes(vjust = 0.1))+
   geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray55", fill="transparent") +
-  annotate("text", label = sigplot, x = 1000, y = -4850000, size=rel(10),  face = 'plain', family = myFont) +
   annotate("rect", xmin = -750000, xmax = -250000, ymin = -4500000, ymax = -4550000, fill = "black", colour = "black", alpha = 1)+
   annotate("rect", xmin = -250000, xmax = 250000, ymin = -4500000, ymax = -4550000, fill = "white", colour = "black", alpha = 1)+
   annotate("text", label = "0", x = -750000, y = -4650000, size=rel(18),  face = 'plain', family = myFont) +
@@ -755,7 +768,7 @@ if (output_PDF == TRUE){
 ###################################################
 #Figure 3 PE vs PE_NULL2
 ####################################################
-sigplot <- "P_PHYLO_RPE2_CANAPE_SIG"
+sigplot <- "P_PHYLO_RPE2_SIG"
 col_scheme <- c("Palaeo" = "royalblue1","Not Sig" = "transparent", "Neo" = "red", "Super" = "#9D00FF", "Mixed"= "#CB7FFF")
 legend_order <-c("Neo","Palaeo", "Mixed", "Super",  "Not Sig")
 legend_labels <- c("Neo"="Neo","Palaeo"="Paleo", "Not Sig"="Not significant", "Mixed"="Mixed", "Super"="Super")
@@ -770,7 +783,7 @@ r_sq_position <- max(biodiverse_results_concatenated$PHYLO_RPE_NULL2)*0.9
 
 fig_3_plot <- ggplot() +
    geom_point(data=biodiverse_results_concatenated, aes(PHYLO_RPE_NULL2, PE_WE_P), colour="#FAFAD2", size=6) +
-  geom_point(data=biodiverse_results_concatenated, aes(PHYLO_RPE_NULL2, PE_WE_P,  colour=P_PHYLO_RPE2_CANAPE_SIG), size=9) +  scale_colour_manual(values = col_scheme, labels=legend_labels, name="", guide=FALSE) +
+  geom_point(data=biodiverse_results_concatenated, aes(PHYLO_RPE_NULL2, PE_WE_P,  colour=P_PHYLO_RPE2_SIG), size=9) +  scale_colour_manual(values = col_scheme, labels=legend_labels, name="", guide=FALSE) +
   stat_smooth(data=biodiverse_results_concatenated, aes(PHYLO_RPE_NULL2, PE_WE_P), colour = "grey69", size=1.8, method="lm", se=FALSE) +
   labs(x = "\nPhylogenetic Endemism on Comparison Tree", y = "Phylogenetic Endemism on Actual Tree\n") +
   annotate("text", label = r_on_plot, x = r_sq_position, y = 0, size =rel(20), face = 'bold', parse=TRUE) +

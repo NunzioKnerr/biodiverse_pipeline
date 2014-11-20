@@ -20,9 +20,9 @@
 source("./R_release/biodiverse_path_reference.R")
 
 
-basedata <- paste0("./pipeline_test/test_hornworts_trimmed_analysed.bds")
+basedata <- "C:/GIS-Datasets/Australian_Genera_Angiosperms_October_2014/Australian_genera_angiosperms_merged_records_46_records_added_trimmed_analysed.bds"
 rand_name <- paste0("rand")
-iterations <- paster0(9)
+iterations <- 999
 args <- paste0("function=rand_structured max_iters=999")
 #
 ###### do not edit below #########

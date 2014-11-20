@@ -10,9 +10,9 @@
 #Nunzio.Knerr@csiro.au
 #Date: 26/05/2014
 # ###### EDIT THESE ###########################
-input_csv_file <- paste0("./pipeline_test/test_hornworts.csv") # input file, csv with columns longitude, latitude in decimal dgrees
-output_csv_file <- paste0("./pipeline_test/test_hornworts_epsg_3577.csv") # output filename .csv
-long_lat_columns <- c("longitude", "latitude")# the names of the longitude and latitude columns go here
+input_csv_file <- "C:/GIS-Datasets/for_nathalie_comparative_study/liverworts_only_records_2014_for_nathalie.csv" # input file, csv with columns longitude, latitude in decimal dgrees
+output_csv_file <- "C:/GIS-Datasets/for_nathalie_comparative_study/liverworts_only_records_2014_for_nathalie_epsg_3577.csv" # output filename .csv
+long_lat_columns <- c("merged_longitude.x", "merged_latitude.x")# the names of the longitude and latitude columns go here
 ###############################################
 # other projections can be used 
 oldproj <- paste0(" +init=epsg:4326") #this is WGS84 most common used for google earth etc. in decimal degrees
