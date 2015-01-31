@@ -80,9 +80,10 @@ sub process_bds_file {
         }
     };
 
-    #  overwrite these for now as we assume they are the same
+    #  we assume these are the same for all inputs (for now)
     my $csv_file = sprintf "%s_%s.csv", $output_csv_prefix, "groups";
-    next BD_FILE if -e $csv_file;
+    return if -e $csv_file;
+
     $bd->get_groups_ref->export (
         file   =>  $csv_file,
         format => 'Delimited text',
