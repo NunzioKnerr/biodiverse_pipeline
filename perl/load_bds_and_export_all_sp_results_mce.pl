@@ -61,14 +61,17 @@ sub process_bds_file {
 
     my @outputs = $bd->get_spatial_output_refs;
 
+  BD_FILE:
     foreach my $output (@outputs) {
         my $output_name = $output->get_param('NAME');
         my @lists = $output->get_lists_across_elements;
+      LIST:
         foreach my $list (@lists) {
             say $list;
             my $list_fname = $list;
             $list_fname =~ s/>>/--/;  #  systems don't like >> in file names
             my $csv_file = sprintf "%s%s_%s_%s.csv", $output_csv_prefix, $file_basename, $output_name, $list_fname;
+            next LIST if -e $csv_file;
             $output->export (
                 file   =>  $csv_file,
                 format => 'Delimited text',
@@ -79,6 +82,7 @@ sub process_bds_file {
 
     #  overwrite these for now as we assume they are the same
     my $csv_file = sprintf "%s_%s.csv", $output_csv_prefix, "groups";
+    next BD_FILE if -e $csv_file;
     $bd->get_groups_ref->export (
         file   =>  $csv_file,
         format => 'Delimited text',
