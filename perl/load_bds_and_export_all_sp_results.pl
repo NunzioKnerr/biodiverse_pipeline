@@ -29,10 +29,10 @@ $| = 1;
 
 my ($opt, $usage) = describe_options(
   '%c <arguments>',
-  [ 'input_bds_file=s',     'The input basedata file .bds', { required => 1 } ],
-  [ 'output_csv_prefix:s',  'The output biodiverse results file prefix (.csv is appended)'],
+  [ 'input_bds_file|i=s',       'The input basedata file .bds', { required => 1 } ],
+  [ 'output_csv_prefix|opfx:s', 'The output biodiverse results file prefix (.csv is appended)'],
   [],
-  [ 'help',       "print usage message and exit" ],
+  [ 'help',       'print usage message and exit' ],
 );
 
  
@@ -55,17 +55,14 @@ croak $@ if $@;
 
 my @outputs = $bd->get_spatial_output_refs;
 
-
-
 foreach my $output (@outputs) {
+    my $output_name = $output->get_param('NAME');
     my @lists = $output->get_lists_across_elements;
     foreach my $list (@lists) {
         say $list;
         my $list_fname = $list;
-        if ($list_fname =~ s/>>/--/) {  #  CHANGE THIS LINE TO ALTER THE >> REPLACEMENT TEXT IN FILENAME
-            say 'Output name changed - now it is ' . $list_fname;
-        }
-        my $csv_file = sprintf "%s_%s.csv", $output_csv_prefix, $list_fname;
+        $list_fname =~ s/>>/--/;  #  systems don't like >> in file names
+        my $csv_file = sprintf "%s_%s_%s.csv", $output_csv_prefix, $output_name, $list_fname;
         $output->export (
             file   =>  $csv_file,
             format => 'Delimited text',
