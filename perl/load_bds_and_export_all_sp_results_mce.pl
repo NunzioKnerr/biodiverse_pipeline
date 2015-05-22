@@ -45,7 +45,7 @@ my @bd_files = sort glob $input_bds_glob;
 mce_loop {
     my ($mce, $chunk_ref, $chunk_id) = @_;
     for my $bd_file (@{ $chunk_ref }) {
-        my $file_list = join ' ', @$_;
+        my $file_list = ref $_ ? join ' ', @$_ : $_;
         MCE->say("$chunk_id: $file_list");
         MCE->say($bd_file);
         process_bds_file ($bd_file);
