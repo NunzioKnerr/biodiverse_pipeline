@@ -8,6 +8,9 @@ use English qw ( -no_match_vars );
 use Path::Class;
 
 use MCE::Loop;
+MCE::Loop::init {
+   max_workers => 16, chunk_size => 1
+};
 
 use Biodiverse::BaseData;
 #  load up the user defined libs
@@ -37,13 +40,14 @@ if ($opt->help) {
 my $input_bds_glob    = $opt->input_bds_glob // '*.bds';
 my $output_csv_prefix = $opt->output_csv_prefix // '';
 
-my @bd_files = glob $input_bds_glob;
+my @bd_files = sort glob $input_bds_glob;
 
 mce_loop {
     my ($mce, $chunk_ref, $chunk_id) = @_;
     for my $bd_file (@{ $chunk_ref }) {
         my $file_list = join ' ', @$_;
         MCE->say("$chunk_id: $file_list");
+        MCE->say($bd_file);
         process_bds_file ($bd_file);
     }
 } @bd_files;
