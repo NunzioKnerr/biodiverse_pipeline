@@ -42,7 +42,8 @@ my @bd_files = glob $input_bds_glob;
 mce_loop {
     my ($mce, $chunk_ref, $chunk_id) = @_;
     for my $bd_file (@{ $chunk_ref }) {
-        MCE->say("$chunk_id: $_");
+        my $file_list = join ' ', @$_;
+        MCE->say("$chunk_id: $file_list");
         process_bds_file ($bd_file);
     }
 } @bd_files;
