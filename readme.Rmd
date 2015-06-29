@@ -39,16 +39,12 @@ Git here [mac installer](https://code.google.com/p/git-osx-installer/downloads/l
 Git gui for mac here [gitx](http://gitx.frim.nl/index.html)\
 
 
-<<<<<<< HEAD
 ****************************
 
 
 #### Extra Installation steps ####
 
 Biodiverse from here [Biodiverse Download page](https://github.com/shawnlaffan/biodiverse/wiki/Installation)\
-=======
-Biodiverse from here [Biodiverse Download page](https://purl.org/biodiverse/wiki/Installation)\
->>>>>>> baf765069c607d8aaea1ac131bc92bac333de1d7
 Install the source version for your operating system.
 
 from a terminal window you will need to run the following as well\
