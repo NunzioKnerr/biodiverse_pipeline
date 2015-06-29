@@ -1,4 +1,6 @@
 ##########################################################################################################
+# RUN THIS SCRIPT 2nd
+#
 #This file generates a csv containing x_metres, y_metres columns according to a defined projection
 #projections can be found at http://spatialreference.org/
 #
@@ -8,15 +10,21 @@
 #newproj: converts to metres according to "newproj" projection
 #
 #Nunzio.Knerr@csiro.au
-#Date: 26/05/2014
+#updated Date:19/06/2015
+#
 # ###### EDIT THESE ###########################
-input_csv_file <- "C:/GIS-Datasets/for_nathalie_comparative_study/liverworts_only_records_2014_for_nathalie.csv" # input file, csv with columns longitude, latitude in decimal dgrees
-output_csv_file <- "C:/GIS-Datasets/for_nathalie_comparative_study/liverworts_only_records_2014_for_nathalie_epsg_3577.csv" # output filename .csv
-long_lat_columns <- c("merged_longitude.x", "merged_latitude.x")# the names of the longitude and latitude columns go here
+input_csv_file <- "C:/biodiverse_pipeline/pipeline_test/test_hornworts.csv" # input file, csv with columns longitude, latitude in decimal dgrees
+
+long_lat_columns <- c("longitude", "latitude")# the names of the longitude and latitude columns go here
 ###############################################
 # other projections can be used 
 oldproj <- paste0(" +init=epsg:4326") #this is WGS84 most common used for google earth etc. in decimal degrees
 newproj <- paste0(" +init=epsg:3577") #albers equal area projection
+##################################
+projection_suffix <- substr(newproj,(nchar(newproj)-8),nchar(newproj))#
+projection_suffix <- gsub(":", "_", projection_suffix)
+#output_csv_file <- "C:/biodiverse_pipeline/pipeline_test/test_hornworts_epsg_3577.csv" # output filename .csv
+output_csv_file <-  paste(substr(input_csv_file,1,nchar(input_csv_file)-4),"_", projection_suffix, ".csv",sep="")# auto replace last 4 characters with new extension and add projection to and of filename
 #####################################################################################################
 library(rgdal) 
 
@@ -27,8 +35,6 @@ locs_sub <- locs[long_lat_columns]#subset - just take the columns defined as Lon
 coordinates(locs_sub) <- locs_sub[long_lat_columns]#convert to coordinates
 proj4string(locs_sub) <- CRS(oldproj)#asign the old projection
 convert_to_metres <- spTransform(locs_sub, CRS=CRS(newproj))  # spTransform makes the projection
-projection_suffix <- substr(newproj,(nchar(newproj)-8),nchar(newproj))#
-projection_suffix <- gsub(":", "_", projection_suffix)
 x_name <- paste("x_",projection_suffix, sep="")
 y_name <- paste("y_",projection_suffix, sep="")
 convert_to_metres<-as.data.frame(convert_to_metres)
