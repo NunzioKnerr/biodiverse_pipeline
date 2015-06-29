@@ -39,18 +39,28 @@ Git here [mac installer](https://code.google.com/p/git-osx-installer/downloads/l
 Git gui for mac here [gitx](http://gitx.frim.nl/index.html)\
 
 
-Biodiverse from here [Biodiverse Download page](https://code.google.com/p/biodiverse/wiki/Installation)\
+****************************
+
+
+#### Extra Installation steps ####
+
+Biodiverse from here [Biodiverse Download page](https://github.com/shawnlaffan/biodiverse/wiki/Installation)\
 Install the source version for your operating system.
 
 from a terminal window you will need to run the following as well\
 
 
-cpanm Getopt::Long::Descriptive\
-cpan Text::CSV\
-cpan Text::CSV_XS\
-cpanm Text::CSV\
-cpanm Text::CSV_XS\
-cpanm List::BinarySearch\
+cpanm Getopt::Long::Descriptive
+
+cpan Text::CSV
+
+cpan Text::CSV_XS
+
+cpanm Text::CSV
+
+cpanm Text::CSV_XS
+
+cpanm List::BinarySearch
 
 
 ***********************
