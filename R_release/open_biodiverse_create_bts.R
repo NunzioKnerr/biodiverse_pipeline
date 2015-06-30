@@ -1,4 +1,5 @@
 ##########################################################################################################
+# RUN THIS SCRIPT 4th
 #
 #This script uses a perl script to open biodiverse, load in a tree file and save out the biodiverse tree file for use in other scripts.
 #Inputs:
@@ -7,11 +8,13 @@
 #
 #
 #Nunzio.Knerr@csiro.au
-#Date:26/05/2014
+#updated Date:19/06/2015
 #
 ##########################################################################################################
-input_tree_file <- "C:/GIS-Datasets/Asteraceae_Sep_2014/biodiverse_daisies_species_maxent/tree_small_branches/daisy_species3_nexus.tre"
-out_file <- "C:/GIS-Datasets/Asteraceae_Sep_2014/biodiverse_daisies_species_maxent/tree_small_branches/daisy_species3_nexus.bts"
+
+input_tree_file <- paste0("./pipeline_test/tree.nex")
+out_file <-  paste(substr(input_tree_file,1,nchar(input_tree_file)-4), ".bts",sep="")# auto replace last 4 characters with new extension
+#out_file <- "C:/GIS-Datasets/GCC/biodiverse_v4_2/Asteraeae_species_tree.bts" #if you want to specify name manually, uncomment this
 #
 source("./R_release/biodiverse_path_reference.R")
 

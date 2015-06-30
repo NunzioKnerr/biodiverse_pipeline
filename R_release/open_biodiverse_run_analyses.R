@@ -1,4 +1,5 @@
 ##########################################################################################################
+# RUN THIS SCRIPT 6th
 #
 #This script uses a perl script to open biodiverse file and run the analyses you want.
 #Inputs:
@@ -11,13 +12,13 @@
 #       For example "Subroutine: calc_endemism_central" 
 #
 #Nunzio.Knerr@csiro.au
-#Date:26/05/2014
+#Date:30/05/2015
 #
 ##########################################################################################################
 #
 source("./R_release/biodiverse_path_reference.R")
-input_bds_file <- "C:/GIS-Datasets/Australian_Genera_Angiosperms_October_2014/Australian_genera_angiosperms_merged_records_46_records_added_trimmed.bds"
-input_bts_file <- "C:/GIS-Datasets/Australian_Genera_Angiosperms_October_2014/Australian_genera_October_2014_tree_Biodiverse_trimmed.bts"
+input_bds_file <- paste0("./pipeline_test/test_hornworts_epsg_3577_trimmed.bds")
+input_bts_file <- paste0("./pipeline_test/tree_trimmed.bts")
 calcs <- paste("calc_endemism_whole,calc_pd,calc_pe,calc_phylo_rpd1,calc_phylo_rpd2,calc_phylo_rpe1,calc_phylo_rpe2")#,calc_phylo_rpe2_branch_stats
 #calcs = paste("calc_numeric_label_stats")
 cmd <- paste ("perl ", biodiverse_pipeline_install_folder, "perl/run_analyses.pl", sep="")

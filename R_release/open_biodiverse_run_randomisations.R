@@ -1,4 +1,5 @@
 ##########################################################################################################
+# RUN THIS SCRIPT 7th
 #
 #This script uses a perl script to open biodiverse and run randomisations.
 #Note: the perl script is part of the biodiverse distribution and resides there.
@@ -13,14 +14,14 @@
 #
 #
 #Nunzio.Knerr@csiro.au
-#Date:26/05/2014
+#Date:30/05/2015
 #
 ##########################################################################################################
 #
 source("./R_release/biodiverse_path_reference.R")
 
 
-basedata <- "C:/GIS-Datasets/Australian_Genera_Angiosperms_October_2014/Australian_genera_angiosperms_merged_records_46_records_added_trimmed_analysed.bds"
+basedata <- paste0("./pipeline_test/test_hornworts_epsg_3577_trimmed_analysed.bds")
 rand_name <- paste0("rand")
 iterations <- 999
 args <- paste0("function=rand_structured max_iters=999")

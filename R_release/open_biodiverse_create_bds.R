@@ -1,4 +1,5 @@
 ##########################################################################################################
+# RUN THIS SCRIPT 3rd
 #
 #This script uses a perl script to open biodiverse, load in a data file and save out the biodiverse file so analyses can be run.
 #Inputs:
@@ -12,25 +13,18 @@
 #
 #
 #Nunzio.Knerr@csiro.au
-#Date:26/05/2014
+#updated Date:24/06/2015
 #
 ##########################################################################################################
 #
-<<<<<<< HEAD
-csv_file <- "C:/GIS-Datasets/Asteraceae_Sep_2014/biodiverse_daisies_species_maxent/tree_small_branches/asteraceae_species_maxent_predicted_albers.csv"
-out_file <- "C:/GIS-Datasets/Asteraceae_Sep_2014/biodiverse_daisies_species_maxent/tree_small_branches/asteraceae_species_maxent_predicted_albers.bds"
-label_column_number <- 1 
-group_column_number_x <- 2 
-group_column_number_y <- 3
-=======
 csv_file <- paste0("./pipeline_test/test_hornworts_epsg_3577.csv")
-out_file <- paste0("./pipeline_test/test_hornworts_epsg_3577.bds")
-label_column_number <- 1 
-group_column_number_x <- 9 
-group_column_number_y <- 10
->>>>>>> 4434f1f71c331dc469a2b7958c0f54e050b4df1a
-cell_size_x <- 100000
-cell_size_y <- 100000
+out_file <-  paste(substr(csv_file,1,nchar(csv_file)-4), ".bds",sep="")# auto replace last 4 characters with new extension
+#out_file <- paste0("./pipeline_test/test_hornworts_epsg_3577.bds") #if you want to specify name manually, uncomment this
+label_column_number <- 1 #column number that the label is in
+group_column_number_x <- 9 #column number that the x group is in
+group_column_number_y <- 10 #column number that the y group is in
+cell_size_x <- "100000" #cell size x axis, in units of the data, 100000 metres in this example
+cell_size_y <- "100000" #cell size y axis, in units of the data, 100000 metres in this example
 #
 ###### do not edit below #########
 #  Should be set on system, but useful for portabilty to other systems
