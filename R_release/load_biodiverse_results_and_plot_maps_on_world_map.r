@@ -13,11 +13,16 @@
 #   print_seperate_images <- "TRUE/FALSE"
 #   output_PNG <- "TRUE/FALSE"
 #   output_PDF <- "TRUE/FALSE"
+#   NOTE: data and map projection need to be the same if you want it to line up and map properly
+#   newproj <- paste0(" +init=epsg:3310") the epsg code for the map to be projected into, should match your data and be in equal area coordinates
+#   region_to_map <-  paste0("USA-3521") # specify the region you want to plot has to match the field in the shape file used
+#   use: summary(worldLowres) to see fields
+#   edit : single.region.map <- worldLowres[worldLowres$adm1_cod_1 == region_to_map,] to match field you want
 #outputs: several maps in the specified output directory either png,pdf or both
 #
 #
 #Nunzio.Knerr@csiro.au
-#Date:22/07/2015
+#Date:30/03/2016
 #
 ##########################################################################################################
 
@@ -37,15 +42,15 @@ library(rgdal)
 myFont <- choose_font(c("HelvLight", "Arial", "sans"), quiet = TRUE) #load a font if available
 
 base_dir <- 'C:/biodiverse_pipeline/'  #  CHANGE THIS PATH TO POINT TO YOUR INSTALLATION
-data_dir <- paste0(base_dir, "pipeline_test/")
+data_dir <- paste0("C:/GIS-Datasets/california/")
 #data_dir <- "C:/GIS-Datasets/chile/" #  CHANGE THIS PATH TO POINT TO YOUR DATA
-output_folder  <- "C:/biodiverse_pipeline/pipeline_test/"
+output_folder  <- paste0("C:/GIS-Datasets/california/output/")
 #output_folder  <- "C:/GIS-Datasets/chile/"  
 
 setwd(data_dir)
 
-fname_spatial_results <- "test_hornworts_epsg_3577_trimmed_analysed_output_SPATIAL_RESULTS.csv"
-fname_rand_results    <- "test_hornworts_epsg_3577_trimmed_analysed_output_rand--SPATIAL_RESULTS.csv"
+fname_spatial_results <- "California_Clades_clean_All_final_epsg_3310_trimmed_analysed_output_SPATIAL_RESULTS.csv"
+fname_rand_results    <- "California_Clades_clean_All_final_epsg_3310_trimmed_analysed_output_rand--SPATIAL_RESULTS.csv"
 
 observed_data_file  <- paste0(data_dir, fname_spatial_results)
 rand_results_file <- paste0(data_dir, fname_rand_results)
@@ -61,38 +66,55 @@ output_PNG <- TRUE
 output_PDF <- FALSE
 #newproj <- paste0("+init=EPSG:3577")#EPSG:5362 - Chile,| ESRI:54009, molle | SR-ORG:7564 - china
 #region_to_map <- paste0("Australia")
-newproj <- paste0("+proj=aea +lat_1=27 +lat_2=45 +lat_0=35 +lon_0=105 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=mm +no_defs ")
-region_to_map <- paste0("China") # specify the region you want to plot usually country, but can get a full list of options by uncommenting and running: #worldLowres$admin also worldLowres$subregion for regions like "Western Asia"
+#oldproj <- paste0(" +init=epsg:4326") #this is WGS84 most common used for google earth etc. in decimal degrees
+newproj <- paste0(" +init=epsg:3310")
+region_to_map <- paste0("USA-3521") # specify the region you want to plot usually country, but can get a full list of options by uncommenting and running: #worldLowres$admin also worldLowres$subregion for regions like "Western Asia"
 
+#summary(worldLowres)
+#use this for country outlines 
+# if(!file.exists("ne_110m_admin_0_countries.shp")){
+#   download.file(url="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_0_countries.zip", "ne_110m_admin_0_countries.zip", "auto")
+#   unzip("ne_110m_admin_0_countries.zip")
+#   file.remove("ne_110m_admin_0_countries.zip")
+#   ogrInfo(".", "ne_110m_admin_0_countries")
+#   worldLowres <- readOGR(".", "ne_110m_admin_0_countries")
+# }else{
+#   ogrInfo(".", "ne_110m_admin_0_countries")
+#   worldLowres <- readOGR(".", "ne_110m_admin_0_countries")
+# }
 
-
-if(!file.exists("ne_110m_admin_0_countries.shp")){
-  download.file(url="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_0_countries.zip", "ne_110m_admin_0_countries.zip", "auto")
-  unzip("ne_110m_admin_0_countries.zip")
-  file.remove("ne_110m_admin_0_countries.zip")
-  ogrInfo(".", "ne_110m_admin_0_countries")
-  worldLowres <- readOGR(".", "ne_110m_admin_0_countries")
+#get map with state outlines for plotting single states ie. california
+if(!file.exists("ne_10m_admin_1_states_provinces.shp")){
+  download.file(url="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_1_states_provinces.zip", "ne_10m_admin_1_states_provinces.zip", "auto")
+  unzip("ne_10m_admin_1_states_provinces.zip")
+  file.remove("ne_10m_admin_1_states_provinces.zip")
+  ogrInfo(".", "ne_10m_admin_1_states_provinces")
+  worldLowres <- readOGR(".", "ne_10m_admin_1_states_provinces")
 }else{
-  ogrInfo(".", "ne_110m_admin_0_countries")
-  worldLowres <- readOGR(".", "ne_110m_admin_0_countries")
+  ogrInfo(".", "ne_10m_admin_1_states_provinces")
+  worldLowres <- readOGR(".", "ne_10m_admin_1_states_provinces")
 }
 
-single.region.map <- worldLowres[worldLowres$admin == region_to_map,]
-#single.region.map <- worldLowres[worldLowres$subregion == region_to_map,]
+#plot(worldLowres)
+summary(worldLowres)
+#single.region.map <- worldLowres[worldLowres$admin == region_to_map,] #use this with country shape file
+single.region.map <- worldLowres[worldLowres$adm1_cod_1 == region_to_map,] # use this with sates outline shape file
+
 #plot(single.region.map)
-single.region.map.reprojected <- spTransform(single.region.map, CRS(newproj))
+single.region.map.reprojected <- spTransform(single.region.map, CRS(newproj)) # repjocet the map so the grids line up with the shape file
 map_data <- single.region.map.reprojected
 #plot(single.region.map.reprojected, col = "grey") 
+plot(map_data)
 bound_box <- single.region.map.reprojected@bbox
 bound_box_min_x <- bound_box[1,1]
 bound_box_max_x <- bound_box[1,2]
 bound_box_min_y <- bound_box[2,1]
 bound_box_max_y <- bound_box[2,2]
 
-max_x <- bound_box_max_x+700000 # extent of map + space for legend
-min_x <- bound_box_min_x-700000 # other extent of map
-max_y <- bound_box_max_y+700000 # extent of map + space for legend
-min_y <- bound_box_min_y-700000 # other extent of map
+max_x <- bound_box_max_x+200000 # extent of map + space for legend
+min_x <- bound_box_min_x-200000 # other extent of map
+max_y <- bound_box_max_y+200000 # extent of map + space for legend
+min_y <- bound_box_min_y-200000 # other extent of map
 
 
 #############################################################################
@@ -191,8 +213,8 @@ theme_pipeline <- function() {
         legend.key.width=unit(6.2,"cm"),
         legend.position=c(.5,0.93),
         legend.direction='horizontal',
-        legend.title=element_text(colour='black',angle=0,size=rel(4),face='plain',family=myFont),
-        legend.text=element_text(colour='black',angle=0,size=rel(4),face='plain',family=myFont),
+        legend.title=element_text(colour='black',angle=0,size=rel(4),family=myFont),
+        legend.text=element_text(colour='black',angle=0,size=rel(4),family=myFont),
         panel.grid=element_blank(),
         panel.background=element_blank(),
         plot.background= element_blank(),
@@ -229,7 +251,7 @@ p1 <- ggplot(data=df) + xlim(min_x, max_x) +  ylim(min_y, max_y) +
   scale_fill_gradientn(name = legend_text, limits = legend_sequence.a.limits_set, colours = colours, breaks= legend_sequence.a.round, guide = guide_colourbar(direction = "horizontal", title.position = "top", title.hjust=0.5, title.vjust=0.9, label.position="bottom", label.hjust = 0.5, label.vjust = 0.5, raster=FALSE)) + 
   geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
   coord_fixed() +
-  annotate("text", label = sigplot, x = (min_x + (abs(max_x-min_x)/2)), y = (min_y+100000) , size=rel(7),  face = 'plain', family = myFont) +
+  annotate("text", label = sigplot, x = (min_x + (abs(max_x-min_x)/2)), y = (min_y+100000) , size=rel(7),  family = myFont) +
 theme_pipeline()
 
 print(p1)
@@ -270,7 +292,7 @@ legend_sequence.b.limits_set <- c(0,legend_sequence.b.max_val+0.01)
 p2 <- ggplot(data=df)+ xlim(min_x, max_x) +  ylim(min_y, max_y) +
   geom_tile(aes_string(x=Axis_0, y=Axis_1, fill=sigplot)) +
   scale_fill_gradientn(name = legend_text, limits = legend_sequence.b.limits_set, colours = colours, breaks= legend_sequence.b.round,  guide = guide_colourbar(direction = "horizontal", title.position = "top",  title.hjust=0.5, title.vjust=0.99, label.position="bottom", label.hjust = 0.5, label.vjust = 0.5, raster=FALSE)) + 
-  annotate("text", label = sigplot, x = (min_x + (abs(max_x-min_x)/2)), y = (min_y+100000) , size=rel(7),  face = 'plain', family = myFont) +
+  annotate("text", label = sigplot, x = (min_x + (abs(max_x-min_x)/2)), y = (min_y+100000) , size=rel(7),  family = myFont) +
   geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
   coord_fixed() +
   theme_pipeline()
@@ -315,7 +337,7 @@ p3 <- ggplot(data=df) + xlim(min_x, max_x) +  ylim(min_y, max_y) +
   scale_fill_gradientn(name = legend_text, limits = legend_sequence.c.limits_set, colours = colours, breaks= legend_sequence.c.round, guide = guide_colourbar(direction = "horizontal", title.position = "bottom", title.hjust=0.5, title.vjust=0.1, label.position="bottom", label.hjust = 0.5, label.vjust = 0.5, raster=FALSE)) + 
   geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
   coord_fixed() +
-  annotate("text", label = sigplot, x = (min_x + (abs(max_x-min_x)/2)), y = (min_y+500000) , size=rel(7),  face = 'plain', family = myFont) +
+  annotate("text", label = sigplot, x = (min_x + (abs(max_x-min_x)/2)), y = (min_y+100000) , size=rel(7), family = myFont) +
   theme_pipeline()+
   theme(legend.position=c(.5,0.06))
 
@@ -358,7 +380,7 @@ p4 <- ggplot(data=df)+ xlim(min_x, max_x) +  ylim(min_y, max_y) +
   scale_fill_gradientn(name = legend_text, limits = legend_sequence.d.limits_set, colours = colours, breaks= legend_sequence.d.round, guide = guide_colourbar(direction = "horizontal", title.position = "bottom", title.hjust=0.5, title.vjust=0.1, label.position="bottom", label.hjust = 0.5, label.vjust = 0.5, raster=FALSE)) + 
   geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
   coord_fixed() +
-  annotate("text", label = sigplot, x = (min_x + (abs(max_x-min_x)/2)), y = (min_y+500000) , size=rel(7),  face = 'plain', family = myFont) +
+  annotate("text", label = sigplot, x = (min_x + (abs(max_x-min_x)/2)), y = (min_y+100000) , size=rel(7), family = myFont) +
   theme_pipeline()+
   theme(legend.position=c(.5,0.06))
 
@@ -427,10 +449,10 @@ map_plot_1 <- ggplot(data=biodiverse_results_concatenated) +  xlim(min_x, max_x)
   theme_minimal() + 
   geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
   coord_fixed() +
-  annotate("text", label = sigplot, x = (min_x + (abs(max_x-min_x)/2)), y = (min_y+100000) , size=rel(7),  face = 'plain', family = myFont) +
+  annotate("text", label = sigplot, x = (min_x + (abs(max_x-min_x)/2)), y = (min_y+100000) , size=rel(7), family = myFont) +
   theme_pipeline()+
-  theme(legend.title = element_text(colour = 'black', angle = 0, size=rel(3.8), face = 'plain', family = myFont),
-        legend.text = element_text(colour = 'black', angle = 0, size=rel(3.8), face = 'plain', family = myFont))
+  theme(legend.title = element_text(colour = 'black', angle = 0, size=rel(3.8), family = myFont),
+        legend.text = element_text(colour = 'black', angle = 0, size=rel(3.8), family = myFont))
 
 print(map_plot_1)
 
@@ -466,10 +488,10 @@ map_plot_2 <- ggplot(data=biodiverse_results_concatenated) +  xlim(min_x, max_x)
   theme_minimal() + 
   geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
   coord_fixed() +
-  annotate("text", label = sigplot, x = (min_x + (abs(max_x-min_x)/2)), y = (min_y+100000) , size=rel(7),  face = 'plain', family = myFont) +
+  annotate("text", label = sigplot, x = (min_x + (abs(max_x-min_x)/2)), y = (min_y+100000) , size=rel(7),  family = myFont) +
   theme_pipeline()+
-  theme(legend.title = element_text(colour = 'black', angle = 0, size=rel(3.8), face = 'plain', family = myFont),
-        legend.text = element_text(colour = 'black', angle = 0, size=rel(3.8), face = 'plain', family = myFont))
+  theme(legend.title = element_text(colour = 'black', angle = 0, size=rel(3.8), family = myFont),
+        legend.text = element_text(colour = 'black', angle = 0, size=rel(3.8),  family = myFont))
 
 print(map_plot_2)
 if (print_seperate_images == TRUE){
@@ -505,7 +527,7 @@ map_plot_3 <- ggplot(data=biodiverse_results_concatenated) +  xlim(min_x, max_x)
   scale_fill_manual(values = col_scheme, labels=legend_labels, name=map_text, guide = guide_legend(direction = "horizontal", title.position = "bottom", title.hjust=0.5, title.vjust=.5, label.position="bottom", label.hjust = 0.5, label.vjust = 0.1))+
   geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
   coord_fixed() +
-  annotate("text", label = sigplot, x = (min_x + (abs(max_x-min_x)/2)), y = (min_y+500000) , size=rel(7),  face = 'plain', family = myFont) +
+  annotate("text", label = sigplot, x = (min_x + (abs(max_x-min_x)/2)), y = (min_y+100000) , size=rel(7),  family = myFont) +
   theme_pipeline()+
   theme(legend.position=c(.5,0.06))
 
@@ -543,7 +565,7 @@ map_plot_4 <- ggplot(data=biodiverse_results_concatenated) +  xlim(min_x, max_x)
   scale_fill_manual(values = col_scheme, labels=legend_labels, name=map_text, guide = guide_legend(direction = "horizontal", title.position = "bottom", title.hjust=0.5, title.vjust=.5, label.position="bottom", label.hjust = 0.5, label.vjust = 0.1))+ 
   geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray74", fill="transparent") +
   coord_fixed() +
-  annotate("text", label = sigplot, x = (min_x + (abs(max_x-min_x)/2)), y = (min_y+500000) , size=rel(7),  face = 'plain', family = myFont) +
+  annotate("text", label = sigplot, x = (min_x + (abs(max_x-min_x)/2)), y = (min_y+100000) , size=rel(7),  family = myFont) +
   theme_pipeline()+
   theme(legend.position=c(.5,0.06))
 
@@ -609,14 +631,14 @@ map_plot_5 <- ggplot(data=biodiverse_results_concatenated) + xlim(min_x, max_x) 
   labs(title=map_text, aes(vjust = 0.1))+
   geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray55", fill="transparent") +
   coord_fixed() +
-  annotate("text", label = sigplot, x = (min_x + (abs(max_x-min_x)/2)), y = (min_y+500000) , size=rel(7),  face = 'plain', family = myFont) +
+  annotate("text", label = sigplot, x = (min_x + (abs(max_x-min_x)/2)), y = (min_y+100000) , size=rel(7),  family = myFont) +
   theme_pipeline()+
-  theme(title = element_text(colour = 'black', angle = 0, size=rel(3.8), face = 'plain', family = myFont),
+  theme(title = element_text(colour = 'black', angle = 0, size=rel(3.8), family = myFont),
         legend.key =element_rect(colour = "black", fill="transparent", size=1),
         legend.key.height = unit(1.1, "cm"),
         legend.key.width = unit(7, "cm"),
         legend.position=c(.5, 0.001),
-        legend.text = element_text(colour = 'black', angle = 0, size=rel(3.8), face = 'plain', family = myFont),
+        legend.text = element_text(colour = 'black', angle = 0, size=rel(3.8),  family = myFont),
         plot.margin=unit(c(0,0,0,0),"line"))
 
 print(map_plot_5)
@@ -654,7 +676,7 @@ fig_3_plot <- ggplot() +
   geom_point(data=biodiverse_results_concatenated, aes(PHYLO_RPE_NULL2, PE_WE_P,  colour=P_PHYLO_RPE2_CANAPE_SIG), size=9) +  scale_colour_manual(values = col_scheme, labels=legend_labels, name="", guide=FALSE) +
   stat_smooth(data=biodiverse_results_concatenated, aes(PHYLO_RPE_NULL2, PE_WE_P), colour = "grey69", size=1.8, method="lm", se=FALSE) +
   labs(x = "\nPhylogenetic Endemism on Comparison Tree", y = "Phylogenetic Endemism on Actual Tree\n") +
-  annotate("text", label = r_on_plot, x = r_sq_position, y = 0, size =rel(20), face = 'bold', parse=TRUE) +
+  annotate("text", label = r_on_plot, x = r_sq_position, y = 0, size =rel(20), parse=TRUE) +
   theme(text = element_text(family = myFont),
         panel.background=element_blank(),
         panel.grid.major=element_blank(),
@@ -721,7 +743,7 @@ fig_s1_plot <- ggplot() +
   geom_point(data=biodiverse_results_concatenated, aes(ENDW_RICHNESS, PD_P), alpha=1, colour = "black", size=3) + 
   stat_smooth(data=biodiverse_results_concatenated, aes(ENDW_RICHNESS, PD_P), colour = "grey69", size=1.8, method="lm", se=FALSE) +
   labs(x = "\nTaxon Richness", y = "Phylogenetic Diversity\n") +
-  annotate("text", label = r_on_plot, x = r_sq_position, y = 0, size =rel(20), face = 'bold', parse=TRUE) +
+  annotate("text", label = r_on_plot, x = r_sq_position, y = 0, size =rel(20), parse=TRUE) +
   theme(text = element_text(family = myFont),
         panel.background=element_blank(),
         panel.grid.major=element_blank(),
@@ -763,7 +785,7 @@ fig_s2_plot <- ggplot() +
   geom_point(data=biodiverse_results_concatenated, aes(ENDW_RICHNESS, PE_WE_P), alpha=1, colour = "black", size=3) + 
   stat_smooth(data=biodiverse_results_concatenated, aes(ENDW_RICHNESS, PE_WE_P), colour = "grey69", size=1.8, method="lm", se=FALSE) +
   labs(x = "\nTaxon Richness", y = "Phylogenetic Endemism\n") +
-  annotate("text", label = r_on_plot, x = r_sq_position, y = 0, size =rel(20), face = 'bold', parse=TRUE) +
+  annotate("text", label = r_on_plot, x = r_sq_position, y = 0, size =rel(20), parse=TRUE) +
   theme(text = element_text(family = myFont),
         panel.background=element_blank(),
         panel.grid.major=element_blank(),
@@ -804,7 +826,7 @@ fig_s3_plot <- ggplot() +
   geom_point(data=biodiverse_results_concatenated, aes(PD_P, PE_WE_P), alpha=1, colour = "black", size=3) + 
   stat_smooth(data=biodiverse_results_concatenated, aes(PD_P, PE_WE_P), colour = "grey69", size=1.8, method="lm", se=FALSE) +
   labs(x = "\nPhylogenetic Diversity", y = "Phylogenetic Endemism\n") +
-  annotate("text", label = r_on_plot, x =r_sq_position, y = 0, size =rel(20), face = 'bold', parse=TRUE) +
+  annotate("text", label = r_on_plot, x =r_sq_position, y = 0, size =rel(20), parse=TRUE) +
   theme(text = element_text(family = myFont),
         panel.background=element_blank(),
         panel.grid.major=element_blank(),
