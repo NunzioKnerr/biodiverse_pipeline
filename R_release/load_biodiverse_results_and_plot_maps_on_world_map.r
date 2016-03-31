@@ -64,6 +64,7 @@ biodiverse_results_concatenated <- cbind(observed_data, rand_results)
 print_seperate_images <- TRUE
 output_PNG <- TRUE
 output_PDF <- FALSE
+<<<<<<< HEAD
 #newproj <- paste0("+init=EPSG:3577")#EPSG:5362 - Chile,| ESRI:54009, molle | SR-ORG:7564 - china
 #region_to_map <- paste0("Australia")
 #oldproj <- paste0(" +init=epsg:4326") #this is WGS84 most common used for google earth etc. in decimal degrees
@@ -90,6 +91,21 @@ if(!file.exists("ne_10m_admin_1_states_provinces.shp")){
   file.remove("ne_10m_admin_1_states_provinces.zip")
   ogrInfo(".", "ne_10m_admin_1_states_provinces")
   worldLowres <- readOGR(".", "ne_10m_admin_1_states_provinces")
+=======
+newproj <- paste0("+init=EPSG:3577")#EPSG:5362 - Chile,| ESRI:54009, molle | SR-ORG:7564 - china
+region_to_map <- paste0("Australia")
+#newproj <- paste0("+proj=aea +lat_1=27 +lat_2=45 +lat_0=35 +lon_0=105 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=mm +no_defs ")
+#region_to_map <- paste0("China") # specify the region you want to plot usually country, but can get a full list of options by uncommenting and running: #worldLowres$admin also worldLowres$subregion for regions like "Western Asia"
+
+
+
+if(!file.exists("ne_110m_admin_0_countries.shp")){
+  download.file(url="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_0_countries.zip", "ne_110m_admin_0_countries.zip", "auto")
+  unzip("ne_110m_admin_0_countries.zip")
+  file.remove("ne_110m_admin_0_countries.zip")
+  ogrInfo(".", "ne_110m_admin_0_countries")
+  worldLowres <- readOGR(".", "ne_110m_admin_0_countries")
+>>>>>>> 1df6f5cc6255cccca600f53f9522dad433ad115d
 }else{
   ogrInfo(".", "ne_10m_admin_1_states_provinces")
   worldLowres <- readOGR(".", "ne_10m_admin_1_states_provinces")

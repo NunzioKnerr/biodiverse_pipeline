@@ -13,9 +13,9 @@
 #updated Date:19/06/2015
 #
 # ###### EDIT THESE ###########################
-input_csv_file <- "C:/biodiverse_pipeline/pipeline_test/test_hornworts.csv" # input file, csv with columns longitude, latitude in decimal dgrees
+input_csv_file <- "C:/GIS-Datasets/collections_over_time/poaceae_avh/poaceae_avh.csv" # input file, csv with columns longitude, latitude in decimal dgrees
 
-long_lat_columns <- c("longitude", "latitude")# the names of the longitude and latitude columns go here
+long_lat_columns <- c("Longitude...processed", "Latitude...processed")# the names of the longitude and latitude columns go here
 ###############################################
 # other projections can be used 
 oldproj <- paste0(" +init=epsg:4326") #this is WGS84 most common used for google earth etc. in decimal degrees
