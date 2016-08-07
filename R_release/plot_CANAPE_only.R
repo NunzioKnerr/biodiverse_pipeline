@@ -133,12 +133,17 @@ plot_CANAPE = function (rand_cats_df, plot_file_pfx, map_shape_file) {
 
 }
 
-plot_CANAPE_all_files = function (wd) {
+plot_CANAPE_all_files = function (wd, recursive=FALSE) {
   if (missing(wd)) {
     wd = getwd()
   }
 
-  files = list.files(path=wd, pattern='--sig--SPATIAL_RESULTS.csv$', full.names=TRUE)
+  files = list.files(
+    path=wd, 
+    pattern='--sig--SPATIAL_RESULTS.csv$', 
+    full.names=TRUE, 
+    recursive=recursive
+  )
 
   for (file in files) {
     message (file)
