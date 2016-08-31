@@ -22,7 +22,7 @@ significance_super_fun <- function(x, y, z){
 
 #  Plot the categorised randomisation outputs from Biodiverse
 #  Function is in desperate need of a refactor
-plot_CANAPE = function (rand_cats_df, plot_file_pfx, map_shape_file) {
+plot_CANAPE = function (rand_cats_df, plot_file_pfx, map_shape_file, return_data=F) {
 
   library(sp)    
   library(maptools) 
@@ -60,6 +60,7 @@ plot_CANAPE = function (rand_cats_df, plot_file_pfx, map_shape_file) {
       rand_cats_df$SIG_1TAIL_PEC_WE[x], 
       rand_cats_df$SIG_1TAIL_PHYLO_RPE_NULLC[x], 
       rand_cats_df$SIG_2TAIL_PHYLO_RPEC[x]
+      # rand_cats_df$SIG_2TAIL_PHYLO_RPE_DIFFC[x]
     )
   )
 
@@ -130,10 +131,13 @@ plot_CANAPE = function (rand_cats_df, plot_file_pfx, map_shape_file) {
       dev.off()
     }
   }
-
+  
+  if (return_data) {
+    return (biodiverse_results_concatenated[[sigplot]])
+  }
 }
 
-plot_CANAPE_all_files = function (wd, recursive=FALSE) {
+plot_CANAPE_all_files = function (wd, recursive=FALSE, return_data=FALSE) {
   if (missing(wd)) {
     wd = getwd()
   }
@@ -144,10 +148,29 @@ plot_CANAPE_all_files = function (wd, recursive=FALSE) {
     full.names=TRUE, 
     recursive=recursive
   )
+  
+  results = data.frame()
 
   for (file in files) {
     message (file)
     df = read.csv (file)
-    plot_CANAPE (df, plot_file_pfx=file)
+    if (!return_data) {
+      plot_CANAPE (df, plot_file_pfx=file, return_data=return_data)
+    }
+    else {
+      x = plot_CANAPE (df, plot_file_pfx=file, return_data=return_data)
+      d = data.frame(file = x)
+      colnames(d) = file
+      if (ncol(results)) {
+        results = cbind (results, d)
+      }
+      else {
+        results = d
+      }
+    }
+  }
+  
+  if (return_data) {
+    return (results)
   }
 }
