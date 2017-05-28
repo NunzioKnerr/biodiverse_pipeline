@@ -62,7 +62,7 @@ foreach my $output (@outputs) {
     foreach my $list (@lists) {
         say $list;
         my $list_fname = $list;
-        if ($list_fname =~ s/>>/--/) {  #  CHANGE THIS LINE TO ALTER THE >> REPLACEMENT TEXT IN FILENAME
+        if ($list_fname =~ s/>>/--/g) {  #  CHANGE THIS LINE TO ALTER THE >> REPLACEMENT TEXT IN FILENAME
             say 'Output name changed - now it is ' . $list_fname;
         }
         my $csv_file = sprintf "%s_%s.csv", $output_csv_prefix, $list_fname;
