@@ -80,10 +80,11 @@ plot_CANAPE = function (rand_cats_df, plot_file_pfx, map_shape_file, return_data
   Axis_0 <- "Axis_0"
   Axis_1 <- "Axis_1"
   
-  max_x <- map_extent@xmax+700000 # extent of map + space for legend
-  min_x <- map_extent@xmin-700000 # other extent of map
-  max_y <- map_extent@ymax+700000 # extent of map + space for legend
-  min_y <- map_extent@ymin-700000 # other extent of map
+  
+  max_x <- map_extent@xmax+7 # extent of map + space for legend
+  min_x <- map_extent@xmin-7 # other extent of map
+  max_y <- map_extent@ymax+7 # extent of map + space for legend
+  min_y <- map_extent@ymin-7 # other extent of map
   
   map_plot_5 <- ggplot(data=biodiverse_results_concatenated) + xlim(min_x, max_x) +  ylim(min_y, max_y) +
     geom_tile(aes_string(x=Axis_0, y=Axis_1, fill=sigplot))+ 
