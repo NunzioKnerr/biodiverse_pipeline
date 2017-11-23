@@ -5,7 +5,7 @@ significance_super_fun <- function(x, y, z){
   if (is.na(x)) {x = 0}
   if (is.na(y)) {y = 0}
   if (is.na(z)) {z = 0.5}
-
+  
   if (x <= 0.95 & y <= 0.95) {
     return ("Not Sig")
   } else if (z < 0.025) {
@@ -14,6 +14,24 @@ significance_super_fun <- function(x, y, z){
     return ("Palaeo")
   } else if (x > 0.99 & y > 0.99) {
     return ("Super")
+  } else {
+    return ("Mixed")
+  }
+}
+
+#  skip the super class
+significance_fun <- function(x, y, z){
+  #  simplify the logic below
+  if (is.na(x)) {x = 0}
+  if (is.na(y)) {y = 0}
+  if (is.na(z)) {z = 0.5}
+  
+  if (x <= 0.95 & y <= 0.95) {
+    return ("Not Sig")
+  } else if (z < 0.025) {
+    return ("Neo")
+  } else if (z > 0.975) {
+    return ("Palaeo")
   } else {
     return ("Mixed")
   }
@@ -56,7 +74,7 @@ plot_CANAPE = function (rand_cats_df, plot_file_pfx, map_shape_file, return_data
   biodiverse_results_concatenated = rand_cats_df  
   biodiverse_results_concatenated[[sigplot]] = sapply(
     1:nrow(rand_cats_df), 
-    function(x) significance_super_fun(
+    function(x) significance_fun(
       rand_cats_df$PE_WE_P[x], 
       rand_cats_df$PHYLO_RPE_NULL2[x], 
       rand_cats_df$PHYLO_RPE2[x]
@@ -71,6 +89,10 @@ plot_CANAPE = function (rand_cats_df, plot_file_pfx, map_shape_file, return_data
   
   map_data   <- readShapePoly(map_shape_file)
   map_extent <- extent(map_data)
+  map_width  = map_extent@xmax - map_extent@xmin
+  map_height = map_extent@ymax - map_extent@ymin
+  map_buffer_x = map_width  * 0.2
+  map_buffer_y = map_height * 0.2
   
   ########################################################
   
@@ -81,23 +103,34 @@ plot_CANAPE = function (rand_cats_df, plot_file_pfx, map_shape_file, return_data
   Axis_1 <- "Axis_1"
   
   
-  max_x <- map_extent@xmax+7 # extent of map + space for legend
-  min_x <- map_extent@xmin-7 # other extent of map
-  max_y <- map_extent@ymax+7 # extent of map + space for legend
-  min_y <- map_extent@ymin-7 # other extent of map
+  max_x <- map_extent@xmax+map_buffer_x # extent of map + space for legend
+  min_x <- map_extent@xmin-map_buffer_x # other extent of map
+  max_y <- map_extent@ymax+map_buffer_y # extent of map + space for legend
+  min_y <- map_extent@ymin-map_buffer_y # other extent of map
+  
+  # l_ll = c(-750000,  -4500000) 
+  # l_ll = c(-3470000, -240000) 
+  l_ll = c(-1000000, 4900000) 
+  l_width  = 1e+06 #  1000 km
+  l_height = 50000  #  50 km
+  l_ur = c(l_ll[1] + l_width, l_ll[2] + l_height)
+  l_mid_x  = l_ll[1] + l_width / 2
+  l_num_offset = l_height * 3
+  l_num_y = l_ll[2] - l_num_offset
+  l_km_x  = l_ur[1] + 0.2 * l_width
   
   map_plot_5 <- ggplot(data=biodiverse_results_concatenated) + xlim(min_x, max_x) +  ylim(min_y, max_y) +
     geom_tile(aes_string(x=Axis_0, y=Axis_1, fill=sigplot))+ 
     scale_fill_manual(values = col_scheme,  labels=legend_labels, name="", guide = guide_legend(direction = "horizontal", title.position = "bottom", title.hjust=0.5, title.vjust=0.5, label.position="bottom", label.hjust = 0.5, label.vjust = 0.1, lineheight=2))+  
     labs(title=map_text, aes(vjust = 0.1))+
     geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="gray55", fill="transparent") +
-    annotate("text", label = sigplot, x = 1000, y = -4850000, size=rel(10),  fontface = 'plain', family = myFont) +
-    annotate("rect", xmin = -750000, xmax = -250000, ymin = -4500000, ymax = -4550000, fill = "black", colour = "black", alpha = 1)+
-    annotate("rect", xmin = -250000, xmax = 250000, ymin = -4500000, ymax = -4550000, fill = "white", colour = "black", alpha = 1)+
-    annotate("text", label = "0", x = -750000, y = -4650000, size=rel(18),  fontface = 'plain', family = myFont) +
-    annotate("text", label = "500", x = -250000, y = -4650000, size=rel(18),  fontface = 'plain', family = myFont) +
-    annotate("text", label = "1000", x = 250000, y = -4650000, size=rel(18),  fontface = 'plain', family = myFont) +
-    annotate("text", label = "km", x = 620000, y = -4650000, size=rel(18),  fontface = 'plain', family = myFont) +
+    #annotate("text", label = sigplot, x = 1000, y = -4850000, size=rel(10),  fontface = 'plain', family = myFont) +
+    annotate("rect", xmin = l_ll[1], xmax = l_mid_x, ymin = l_ll[2], ymax = l_ur[2], fill = "black", colour = "black", alpha = 1)+
+    annotate("rect", xmin = l_mid_x, xmax = l_ur[1], ymin = l_ll[2], ymax = l_ur[2], fill = "white", colour = "black", alpha = 1)+
+    annotate("text", label = "0",    x = l_ll[1], y = l_num_y, size=rel(18),  fontface = 'plain', family = myFont) +
+    annotate("text", label = "500",  x = l_mid_x, y = l_num_y, size=rel(18),  fontface = 'plain', family = myFont) +
+    annotate("text", label = "1000", x = l_ur[1], y = l_num_y, size=rel(18),  fontface = 'plain', family = myFont) +
+    annotate("text", label = "km",   x = l_km_x,  y = l_ll[2] + l_height/2, size=rel(18),  fontface = 'plain', family = myFont) +
     coord_fixed() +
     theme(text = element_text(family = myFont),
           strip.background = element_blank(),
@@ -145,7 +178,7 @@ plot_CANAPE_all_files = function (wd, recursive=FALSE, return_data=FALSE, ...) {
 
   files = list.files(
     path=wd, 
-    pattern='--sig--SPATIAL_RESULTS.csv$', 
+    pattern='--sig--SPATIAL_RESULTS.+.csv$', 
     full.names=TRUE, 
     recursive=recursive
   )
