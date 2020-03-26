@@ -65,7 +65,7 @@ plot_CANAPE = function (rand_cats_df, plot_file_pfx, map_shape_file, polylines, 
     base_dir = "C:/shawn/git/biodiverse_pipeline"
     map_shape_file <- paste(base_dir, "shape_files/coastline_albers.shp", sep="/")
   }
-  
+
   if (missing (plot_file_pfx)) {
     plot_file_pfx = paste(getwd(), "CANAPE") 
   }
@@ -95,7 +95,14 @@ plot_CANAPE = function (rand_cats_df, plot_file_pfx, map_shape_file, polylines, 
   map_buffer_y = map_height * 0.1
   
   message (paste (extent(map_data)))
-  
+
+  if (missing(polylines)) {
+    polyline_data = map_data
+  }
+  else {
+    polyline_data = readShapeLines(polylines)
+  }
+    
   ########################################################
   
   
@@ -126,7 +133,7 @@ plot_CANAPE = function (rand_cats_df, plot_file_pfx, map_shape_file, polylines, 
     geom_tile(aes_string(x=Axis_0, y=Axis_1, fill=sigplot))+ 
     scale_fill_manual(values = col_scheme,  labels=legend_labels, name="", guide = guide_legend(direction = "horizontal", title.position = "bottom", title.hjust=0.5, title.vjust=0.5, label.position="bottom", label.hjust = 0.5, label.vjust = 0.1, lineheight=2))+  
     # labs(title=map_text, aes(vjust = 0.1))+
-    geom_path(data=map_data, aes(x=long, y=lat, group = group),colour="gray55") +
+    geom_path(data=polyline_data, aes(x=long, y=lat, group = group),colour="gray55") +
     #annotate("text", label = sigplot, x = 1000, y = -4850000, size=rel(10),  fontface = 'plain', family = myFont) +
     # annotate("rect", xmin = l_ll[1], xmax = l_mid_x, ymin = l_ll[2], ymax = l_ur[2], fill = "black", colour = "black", alpha = 1)+
     # annotate("rect", xmin = l_mid_x, xmax = l_ur[1], ymin = l_ll[2], ymax = l_ur[2], fill = "white", colour = "black", alpha = 1)+
