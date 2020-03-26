@@ -97,11 +97,21 @@ plot_CANAPE = function (rand_cats_df, plot_file_pfx, map_shape_file, polylines, 
   message (paste (extent(map_data)))
 
   if (missing(polylines)) {
-    polyline_data = map_data
+    message ("polylines arg missing")
+    polyline_data = list ("file" = map_data)
   }
   else {
-    polyline_data = readShapeLines(polylines)
+    message ("polylines arg found")
+    polyline_data = list()
+    for (file in polylines) {
+      message ("Adding polylines for ", file)
+      # browser()
+      d = readShapeLines(file)
+      polyline_data[[file]] = d
+    }
   }
+  # message ("POLYLINES:")
+  # message(paste (names(polyline_data)))
     
   ########################################################
   
@@ -131,9 +141,15 @@ plot_CANAPE = function (rand_cats_df, plot_file_pfx, map_shape_file, polylines, 
   map_plot_5 <- ggplot(data=biodiverse_results_concatenated) + xlim(min_x, max_x) +  ylim(min_y, max_y) +
     geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="transparent", fill="gray85") +
     geom_tile(aes_string(x=Axis_0, y=Axis_1, fill=sigplot))+ 
-    scale_fill_manual(values = col_scheme,  labels=legend_labels, name="", guide = guide_legend(direction = "horizontal", title.position = "bottom", title.hjust=0.5, title.vjust=0.5, label.position="bottom", label.hjust = 0.5, label.vjust = 0.1, lineheight=2))+  
+    scale_fill_manual(values = col_scheme,  labels=legend_labels, name="", guide = guide_legend(direction = "horizontal", title.position = "bottom", title.hjust=0.5, title.vjust=0.5, label.position="bottom", label.hjust = 0.5, label.vjust = 0.1, lineheight=2))
     # labs(title=map_text, aes(vjust = 0.1))+
-    geom_path(data=polyline_data, aes(x=long, y=lat, group = group),colour="gray55") +
+  for (key in names (polyline_data)) {
+    message (paste ("Adding lines for", key))
+    data = polyline_data[[key]]
+    map_plot_5 = map_plot_5 +
+      geom_path(data=data, aes(x=long, y=lat, group = group),colour="gray55")
+  }
+  map_plot_5 = map_plot_5 +
     #annotate("text", label = sigplot, x = 1000, y = -4850000, size=rel(10),  fontface = 'plain', family = myFont) +
     # annotate("rect", xmin = l_ll[1], xmax = l_mid_x, ymin = l_ll[2], ymax = l_ur[2], fill = "black", colour = "black", alpha = 1)+
     # annotate("rect", xmin = l_mid_x, xmax = l_ur[1], ymin = l_ll[2], ymax = l_ur[2], fill = "white", colour = "black", alpha = 1)+
