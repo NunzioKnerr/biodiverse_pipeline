@@ -122,6 +122,7 @@ plot_CANAPE = function (rand_cats_df, plot_file_pfx, map_shape_file, return_data
   l_km_x  = l_ur[1] + 0.2 * l_width
 
   map_plot_5 <- ggplot(data=biodiverse_results_concatenated) + xlim(min_x, max_x) +  ylim(min_y, max_y) +
+    geom_polygon(data=map_data, aes(x=long, y=lat, group = group),colour="transparent", fill="gray85") +
     geom_tile(aes_string(x=Axis_0, y=Axis_1, fill=sigplot))+ 
     scale_fill_manual(values = col_scheme,  labels=legend_labels, name="", guide = guide_legend(direction = "horizontal", title.position = "bottom", title.hjust=0.5, title.vjust=0.5, label.position="bottom", label.hjust = 0.5, label.vjust = 0.1, lineheight=2))+  
     # labs(title=map_text, aes(vjust = 0.1))+
@@ -156,12 +157,14 @@ plot_CANAPE = function (rand_cats_df, plot_file_pfx, map_shape_file, return_data
   if (print_seperate_images == TRUE){
     if (output_PNG == TRUE){
       fname = paste0(plot_file_pfx, ".png")
+      message (paste ("writing to", fname))
       CairoPNG(width = 2000, height = 2000, file = fname, canvas="white", bg = "white", units="px", dpi=72, title = "R Graphics Output") #
       print(map_plot_5)
       dev.off()
     }
     if (output_PDF == TRUE){
       fname = paste0(plot_file_pfx, ".pdf")
+      message (paste ("writing to", fname))
       CairoPDF(width = 36.74, height = 39.19, file = fname, pointsize=40, bg = "white", family =  "HelvLight", title = "Figure 3", version = "1.7", paper = "special", pagecentre=TRUE) #
       print(map_plot_5)
       dev.off()
